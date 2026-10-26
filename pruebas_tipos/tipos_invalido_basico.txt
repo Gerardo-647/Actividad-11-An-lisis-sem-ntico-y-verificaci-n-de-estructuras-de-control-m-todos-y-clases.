@@ -1,0 +1,27 @@
+class EvaluadorErrores {
+    int contador = 5;
+    bool bandera = false;
+    const int LIMITE = 100;
+
+    void ejecutar() {
+        int a = 0;
+        bool b = false;
+
+        // Error 1: Asignación incompatible
+        a = "Hola mundo";
+
+        // Error 2: Operación aritmética con booleano
+        contador = bandera * 10;
+
+        // Error 3: Condición con expresión entera
+        if (contador + 5) {
+            cout << "Error";
+        }
+
+        // Error 4: Reasignación a constante
+        LIMITE = 200;
+
+        // Error 5: Uso de variable no declarada
+        a = variableInexistente + 2;
+    }
+}

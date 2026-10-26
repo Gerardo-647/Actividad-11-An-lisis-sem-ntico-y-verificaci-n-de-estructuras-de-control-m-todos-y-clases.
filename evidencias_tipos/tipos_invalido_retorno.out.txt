@@ -1,0 +1,76 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - VERIFICACIÓN DE TIPOS
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: tabla de simbolos y verificacion de tipos (C++, tipado estatico)
+Archivo: pruebas_tipos/tipos_invalido_retorno.txt
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Error semántico en línea 3, columna 18: Incompatibilidad de tipos: el método 'malo' retorna 'int' pero se devuelve un valor de tipo 'string' (encontrado: '"texto"').
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Error semántico en línea 4, columna 26: Incompatibilidad de tipos: el método 'tambienMalo' retorna 'bool' pero se devuelve un valor de tipo 'int' (encontrado: '5').
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Error semántico en línea 5, columna 23: El método 'soloVoid' es 'void' y no puede devolver un valor (encontrado: 'return').
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Error semántico en línea 6, columna 22: El método 'sinValor' debe devolver un valor de tipo 'int' (encontrado: 'return').
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: declaracion
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Error semántico en línea 10, columna 13: el método 'soloVoid' es 'void' y no devuelve un valor que pueda usarse en una expresión (encontrado: 'soloVoid').
+Regla reconocida: asignacion
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: expresion_aritmetica -> bueno() + malo() [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Error semántico en línea 12, columna 16: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'int' a la variable 's' de tipo 'string' (encontrado: 's').
+Regla reconocida: declaracion
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: clase Retornos
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 3
+  Operaciones aritméticas (+ - * / %):                             1
+  Operaciones relacionales (> < >= <= == !=):                      0
+  Operaciones lógicas (&& || !):                                   0
+  Condiciones de control (if, while, do-while, for):               0
+  Retornos de método:                                              6
+Errores detectados:
+  Incompatibilidad de tipos:                  6
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 0
+Resultado semántico: CON ERRORES (6 errores semánticos)
+================================================================================
+Tabla de simbolos no generada: el analisis contiene errores.
+RESULTADO: INVALIDO | errores sintacticos: 0 | errores semanticos: 6 | errores lexicos: 0 | analisis completo

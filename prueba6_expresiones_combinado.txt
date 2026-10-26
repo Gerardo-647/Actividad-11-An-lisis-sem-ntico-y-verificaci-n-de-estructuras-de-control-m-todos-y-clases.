@@ -1,0 +1,40 @@
+class Calculadora {
+
+    int base;
+    final double PI = 3.1416;
+
+    void proceso() {
+
+        leer(a);
+        leer(b,c);
+
+        escribir("Inicio del proceso");
+
+        total = a + b;
+
+        leer(a b);
+
+        promedio = (a+b+c)/3;
+
+        escribir("Resultado:",total
+
+        activo = a && b;
+
+        resultado = a + ;
+
+        estado = !activo;
+
+        = a + b;
+
+        mixto = (a && b) || c;
+
+        escribir(,a);
+
+        escribir(promedio);
+        escribir(a+b);
+
+    }
+
+    int contador;
+
+}

@@ -1,0 +1,4 @@
+void proceso() {
+    switch() { case 1: break; }
+    cout << "POSTERIOR";
+}

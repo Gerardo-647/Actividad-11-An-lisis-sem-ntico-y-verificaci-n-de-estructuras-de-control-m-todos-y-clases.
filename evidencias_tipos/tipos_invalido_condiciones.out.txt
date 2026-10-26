@@ -1,0 +1,87 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - VERIFICACIÓN DE TIPOS
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: tabla de simbolos y verificacion de tipos (C++, tipado estatico)
+Archivo: pruebas_tipos/tipos_invalido_condiciones.txt
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Error semántico en línea 8, columna 13: La expresión dentro de la condición 'if' debe ser de tipo 'bool', se encontró 'int' (encontrado: 'contador').
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Regla reconocida: expresion_aritmetica -> promedio + 1 [tipo: float]
+Error semántico en línea 9, columna 13: La expresión dentro de la condición 'if' debe ser de tipo 'bool', se encontró 'float' (encontrado: 'promedio + 1').
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: seleccion_doble
+Error semántico en línea 10, columna 13: La expresión dentro de la condición 'if' debe ser de tipo 'bool', se encontró 'string' (encontrado: 'nombre').
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: expresion_aritmetica -> contador + 1 [tipo: int]
+Error semántico en línea 10, columna 41: La expresión dentro de la condición 'if' debe ser de tipo 'bool', se encontró 'int' (encontrado: 'contador + 1').
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Regla reconocida: estructura_anidada
+Regla reconocida: seleccion_doble
+Error semántico en línea 11, columna 16: La expresión dentro de la condición 'while' debe ser de tipo 'bool', se encontró 'int' (encontrado: 'i').
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: ciclo_mientras
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Error semántico en línea 12, columna 28: La expresión dentro de la condición 'do-while' debe ser de tipo 'bool', se encontró 'float' (encontrado: 'promedio').
+Regla reconocida: ciclo_hacer_mientras
+Error semántico en línea 13, columna 21: La expresión dentro de la condición 'for' debe ser de tipo 'bool', se encontró 'int' (encontrado: 'i').
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: ciclo_para
+Error semántico en línea 14, columna 17: La expresión del 'switch' debe ser de tipo entero (int o char), se encontró 'float' (encontrado: 'promedio').
+Regla reconocida: asignacion
+Regla reconocida: break
+Regla reconocida: case 1
+Regla reconocida: seleccion_multiple
+Regla reconocida: asignacion
+Regla reconocida: break
+Error semántico en línea 15, columna 34: El valor del 'case' debe ser de tipo entero (int o char) para ser compatible con el 'switch' de tipo 'int', se encontró 'string' (encontrado: '"uno"').
+Regla reconocida: case "uno"
+Regla reconocida: asignacion
+Regla reconocida: break
+Error semántico en línea 15, columna 60: El valor del 'case' debe ser de tipo entero (int o char) para ser compatible con el 'switch' de tipo 'int', se encontró 'float' (encontrado: '2.5').
+Regla reconocida: case 2.5
+Regla reconocida: asignacion
+Regla reconocida: break
+Regla reconocida: case 3
+Regla reconocida: seleccion_multiple
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: clase Condiciones
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 15
+  Operaciones aritméticas (+ - * / %):                             2
+  Operaciones relacionales (> < >= <= == !=):                      0
+  Operaciones lógicas (&& || !):                                   0
+  Condiciones de control (if, while, do-while, for):               7
+  Retornos de método:                                              0
+Errores detectados:
+  Incompatibilidad de tipos:                  10
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 0
+Resultado semántico: CON ERRORES (10 errores semánticos)
+================================================================================
+Tabla de simbolos no generada: el analisis contiene errores.
+RESULTADO: INVALIDO | errores sintacticos: 0 | errores semanticos: 10 | errores lexicos: 0 | analisis completo

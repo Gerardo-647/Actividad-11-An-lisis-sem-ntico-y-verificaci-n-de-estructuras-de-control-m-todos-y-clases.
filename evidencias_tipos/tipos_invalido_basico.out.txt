@@ -1,0 +1,51 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - VERIFICACIÓN DE TIPOS
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: tabla de simbolos y verificacion de tipos (C++, tipado estatico)
+Archivo: pruebas_tipos/tipos_invalido_basico.txt
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: constante
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Error semántico en línea 11, columna 9: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'string' a la variable 'a' de tipo 'int' (encontrado: 'a').
+Regla reconocida: asignacion
+Error semántico en línea 14, columna 28: El operador aritmético '*' no es aplicable a los operandos de tipo 'bool' y 'int' (encontrado: '*').
+Regla reconocida: asignacion
+Regla reconocida: expresion_aritmetica -> contador + 5 [tipo: int]
+Error semántico en línea 17, columna 13: La expresión dentro de la condición 'if' debe ser de tipo 'bool', se encontró 'int' (encontrado: 'contador + 5').
+Regla reconocida: escritura
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Error semántico en línea 22, columna 9: No se puede reasignar un valor a la constante 'LIMITE' (encontrado: 'LIMITE').
+Regla reconocida: asignacion
+Error semántico en línea 25, columna 13: la variable 'variableInexistente' no ha sido declarada (encontrado: 'variableInexistente').
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: clase EvaluadorErrores
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 7
+  Operaciones aritméticas (+ - * / %):                             3
+  Operaciones relacionales (> < >= <= == !=):                      0
+  Operaciones lógicas (&& || !):                                   0
+  Condiciones de control (if, while, do-while, for):               1
+  Retornos de método:                                              0
+Errores detectados:
+  Incompatibilidad de tipos:                  3
+  Modificación de constantes (inmutabilidad): 1
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 1
+Resultado semántico: CON ERRORES (5 errores semánticos)
+================================================================================
+Tabla de simbolos no generada: el analisis contiene errores.
+RESULTADO: INVALIDO | errores sintacticos: 0 | errores semanticos: 5 | errores lexicos: 0 | analisis completo

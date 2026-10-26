@@ -1,0 +1,38 @@
+int sumar(int a, int b) {
+    return a + b;
+}
+
+int calcular(int x, int y) {
+    int resultado = 0;
+    resultado = sumar(x, y);
+    return resultado * 2;
+}
+
+bool esPar(int numero) {
+    return numero % 2 == 0;
+}
+
+int procesarNumero(int numero) {
+    int resultado = 0;
+    resultado = 0;
+    
+    if (esPar(numero)) {
+        resultado = numero * 2;
+    } else {
+        resultado = numero + 1;
+    }
+    
+    return resultado;
+}
+
+void proceso() {
+    int total = 0;
+    int resultado = 0;
+    total = calcular(10, 20);
+    cout << total;
+
+    for (int i = 0; i < 10; i = i + 1) {
+        resultado = procesarNumero(i);
+        cout << resultado;
+    }
+}

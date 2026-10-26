@@ -1,0 +1,146 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - ESTRUCTURAS DE CONTROL, MÉTODOS Y CLASES
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: estructuras de control, metodos, clases y ambitos (C++, tipado estatico)
+Archivo: pruebas_semantica/sem_valido_control.txt
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: expresion_relacional -> i < 10 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: expresion_aritmetica -> suma + 1 [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: condicion
+Regla reconocida: expresion_aritmetica -> suma + 2 [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: seleccion_doble
+Regla reconocida: estructura_anidada
+Regla reconocida: seleccion_doble
+Regla reconocida: expresion_relacional -> i < 10 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: expresion_aritmetica -> i + 1 [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: expresion_relacional -> i == 5 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: continue
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Regla reconocida: expresion_relacional -> i == 8 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: break
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Regla reconocida: bloque
+Regla reconocida: estructura_anidada
+Regla reconocida: ciclo_mientras
+Regla reconocida: expresion_aritmetica -> i - 1 [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: expresion_relacional -> i < 3 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: break
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Regla reconocida: bloque
+Regla reconocida: expresion_relacional -> i > 0 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: estructura_anidada
+Regla reconocida: ciclo_hacer_mientras
+Regla reconocida: expresion_relacional -> j < 5 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: expresion_relacional -> j == 3 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: break
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Regla reconocida: expresion_aritmetica -> suma + j [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: estructura_anidada
+Regla reconocida: ciclo_para
+Regla reconocida: expresion_relacional -> j < 2 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: expresion_aritmetica -> suma + j [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: ciclo_para
+Regla reconocida: asignacion
+Regla reconocida: break
+Regla reconocida: case 1
+Regla reconocida: asignacion
+Regla reconocida: break
+Regla reconocida: case 2
+Regla reconocida: asignacion
+Regla reconocida: default
+Regla reconocida: seleccion_multiple
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: clase Control
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 16
+  Operaciones aritméticas (+ - * / %):                             6
+  Operaciones relacionales (> < >= <= == !=):                      9
+  Operaciones lógicas (&& || !):                                   0
+  Condiciones de control (if, while, do-while, for):               10
+  Retornos de método:                                              0
+Errores detectados:
+  Incompatibilidad de tipos:                  0
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 0
+Resultado semántico: CORRECTO (sin errores semánticos)
+================================================================================
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO: ESTRUCTURAS DE CONTROL, MÉTODOS, CLASES Y ÁMBITOS
+================================================================================
+Verificaciones realizadas:
+  Condiciones de control (if, while, do-while, for):         10
+  Instrucciones break / continue / return (contexto):        6
+  Verificaciones de switch (expresión, case, default):       4
+  Declaraciones de métodos y constructores:                  1
+  Llamadas a métodos y constructores:                        0
+  Argumentos comparados contra parámetros:                   0
+  Retornos de método (tipo) y métodos con retorno completo:  0 / 0
+  Clases declaradas o referenciadas:                         1
+  Accesos a miembros de objetos (atributos y métodos):       0
+  Resoluciones de identificadores (ámbitos):                 31
+  Ámbitos de bloque abiertos (bloque, for, switch):          14
+Errores detectados por categoría:
+  Estructuras de control (break/continue/return/switch):     0
+  Métodos (llamadas, argumentos, firmas, retorno completo):  0
+  Clases y miembros (herencia, existencia, visibilidad):     0
+  Ámbitos e identificadores (no declarado / fuera de ámbito): 0
+  Declaraciones duplicadas:                                  0
+  Tipos y constantes:                                        0
+  Otros (convención de nombres, inicialización):             0
+Resultado general: CORRECTO (sin errores semánticos)
+================================================================================
+==============================================================================================================================================================================
+                                                                              TABLA DE SÍMBOLOS
+==============================================================================================================================================================================
+ID                 Categoría     Tipo Dato   Valor            Ámbito              Visib.     Línea   Columna   Token Originador Detalle
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Control            CLASE         void        N/A              GLOBAL              -          1       7         ID               miembros: probar()
+probar             METODO        void        N/A              Control             private    2       10        ID               () -> void
+i                  VARIABLE      int         0                Control.probar      -          3       13        ID               
+suma               VARIABLE      int         0                Control.probar      -          4       13        ID               
+activo             VARIABLE      bool        true             Control.probar      -          5       14        ID               
+opcion             VARIABLE      int         2                Control.probar      -          6       13        ID               
+j                  VARIABLE      int         0                Control.probar.for1 -          33      18        ID               
+j                  VARIABLE      int         0                Control.probar.for2 -          40      18        ID               
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total de símbolos registrados: 8
+RESULTADO: VALIDO | errores sintacticos: 0 | errores semanticos: 0 | errores lexicos: 0 | analisis completo

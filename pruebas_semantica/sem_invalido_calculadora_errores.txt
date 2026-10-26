@@ -1,0 +1,44 @@
+class CalculadoraErrores {
+
+    int base = 10;
+
+    int sumar(int a, int b) {
+        return a + b;
+    }
+
+    int obtenerEdad() {
+        return "veinticinco";
+    }
+
+    void ejecutar() {
+        int resultado = 0;
+        bool activo = false;
+
+        // Error 1: Condición de tipo incompatible
+        if (resultado) {
+            escribir("Error");
+        }
+
+        // Error 2: Número incorrecto de argumentos
+        resultado = sumar(10);
+
+        // Error 3: Tipo incompatible en los argumentos
+        resultado = sumar("Hola", 20);
+
+        // Error 4: Método no declarado
+        resultado = multiplicar(2, 3);
+
+        // Error 5: Uso incorrecto de break
+        break;
+
+        // Error 6: Variable fuera de ámbito
+        {
+            int valorLocal = 100;
+        }
+
+        resultado = valorLocal;
+
+        // Error 7: Atributo inexistente
+        resultado = limite;
+    }
+}

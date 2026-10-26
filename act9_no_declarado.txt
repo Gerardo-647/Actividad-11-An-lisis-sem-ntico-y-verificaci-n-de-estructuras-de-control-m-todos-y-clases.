@@ -1,0 +1,13 @@
+class Calculadora {
+    int total = 0;
+    int sumar(int a) {
+        int r = a + total;
+        int s = r + desconocida;
+        total = otroValor + 1;
+        return r;
+    }
+    void ejecutar() {
+        int x = sumar(2);
+        int y = metodoFantasma(x);
+    }
+}

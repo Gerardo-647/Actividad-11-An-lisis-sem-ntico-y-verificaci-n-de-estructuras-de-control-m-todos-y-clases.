@@ -1,0 +1,64 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - ESTRUCTURAS DE CONTROL, MÉTODOS Y CLASES
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: estructuras de control, metodos, clases y ambitos (C++, tipado estatico)
+Archivo: pruebas_semantica/sem_invalido_return_fuera.txt
+Error semántico en línea 1, columna 1: La instrucción 'return' no puede utilizarse fuera de un método o función (encontrado: 'return').
+Regla reconocida: retorno
+Regla reconocida: declaracion
+Error semántico en línea 5, columna 5: La instrucción 'return' no puede utilizarse fuera de un método o función (encontrado: 'return').
+Regla reconocida: retorno
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: clase Prueba
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 1
+  Operaciones aritméticas (+ - * / %):                             0
+  Operaciones relacionales (> < >= <= == !=):                      0
+  Operaciones lógicas (&& || !):                                   0
+  Condiciones de control (if, while, do-while, for):               0
+  Retornos de método:                                              1
+Errores detectados:
+  Incompatibilidad de tipos:                  0
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 0
+Resultado semántico: CON ERRORES (2 errores semánticos)
+================================================================================
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO: ESTRUCTURAS DE CONTROL, MÉTODOS, CLASES Y ÁMBITOS
+================================================================================
+Verificaciones realizadas:
+  Condiciones de control (if, while, do-while, for):         0
+  Instrucciones break / continue / return (contexto):        3
+  Verificaciones de switch (expresión, case, default):       0
+  Declaraciones de métodos y constructores:                  1
+  Llamadas a métodos y constructores:                        0
+  Argumentos comparados contra parámetros:                   0
+  Retornos de método (tipo) y métodos con retorno completo:  1 / 1
+  Clases declaradas o referenciadas:                         1
+  Accesos a miembros de objetos (atributos y métodos):       0
+  Resoluciones de identificadores (ámbitos):                 2
+  Ámbitos de bloque abiertos (bloque, for, switch):          0
+Errores detectados por categoría:
+  Estructuras de control (break/continue/return/switch):     2
+  Métodos (llamadas, argumentos, firmas, retorno completo):  0
+  Clases y miembros (herencia, existencia, visibilidad):     0
+  Ámbitos e identificadores (no declarado / fuera de ámbito): 0
+  Declaraciones duplicadas:                                  0
+  Tipos y constantes:                                        0
+  Otros (convención de nombres, inicialización):             0
+Resultado general: CON ERRORES (2 errores semánticos en total)
+================================================================================
+Tabla de simbolos no generada: el analisis contiene errores.
+RESULTADO: INVALIDO | errores sintacticos: 0 | errores semanticos: 2 | errores lexicos: 0 | analisis completo

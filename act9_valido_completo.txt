@@ -1,0 +1,11 @@
+class ProcesadorDatos {
+    int contadorGlobal;
+    bool estadoActivo = true;
+    final float PI = 3.1416;
+
+    int ejecutarCalculo(int factor) {
+        int resultadoBase = 10;
+        resultadoBase = resultadoBase * factor;
+        return resultadoBase;
+    }
+}

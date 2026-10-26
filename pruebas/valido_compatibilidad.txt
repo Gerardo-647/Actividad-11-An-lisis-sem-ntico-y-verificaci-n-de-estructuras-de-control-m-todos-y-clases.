@@ -1,0 +1,4 @@
+void proceso() {
+    int a = 0, b = 0; final double PI=3.14; String texto="hola"; boolean activo=true; leer(a,b); escribir(texto);
+    cout << "POSTERIOR";
+}

@@ -1,0 +1,20 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANALIZADOR LÉXICO Y SINTÁCTICO
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+ACTIVIDAD 9 - Analisis semantico: tabla de simbolos y tipos de datos
+Archivo: act9_duplicado.txt
+Regla reconocida: declaracion
+Error semántico en línea 4, columna 13: el identificador 'contador' ya fue declarado previamente en este ámbito (encontrado: 'contador').
+Regla reconocida: declaracion
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: clase Programa
+Regla reconocida: archivo
+Tabla de simbolos no generada: el analisis contiene errores.
+RESULTADO: INVALIDO | errores sintacticos: 0 | errores semanticos: 1 | errores lexicos: 0 | analisis completo

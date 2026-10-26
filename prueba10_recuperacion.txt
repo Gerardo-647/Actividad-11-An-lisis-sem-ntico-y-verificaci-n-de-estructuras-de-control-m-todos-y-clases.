@@ -1,0 +1,9 @@
+void proceso() {
+    int a = 0;
+    int contador = 0;
+    if (a > ) {
+        cout << "Condicion incorrecta";
+    }
+    cout << "CONTINUACION_RECUPERADA";
+    while (contador < 3) { contador++; }
+}

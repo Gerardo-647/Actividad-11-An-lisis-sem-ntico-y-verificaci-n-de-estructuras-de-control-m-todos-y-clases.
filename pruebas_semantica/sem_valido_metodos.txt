@@ -1,0 +1,88 @@
+int cuadrado(int n) {
+    return n * n;
+}
+
+float promedio(int suma, int cantidad) {
+    return suma / cantidad;
+}
+
+bool esPar(int n) {
+    return n % 2 == 0;
+}
+
+void saludar() {
+    escribir("Hola");
+    return;
+}
+
+int absoluto(int n) {
+    if (n < 0) {
+        return -n;
+    } else {
+        return n;
+    }
+}
+
+int clasificar(int n) {
+    if (n < 0) {
+        return -1;
+    } else if (n == 0) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+int infinito() {
+    while (true) {
+        return 1;
+    }
+}
+
+int porOpcion(int op) {
+    switch (op) {
+        case 1: return 10;
+        default: return 0;
+    }
+}
+
+// sobrecarga: mismo nombre, distintos parametros
+int sumar(int a, int b) {
+    return a + b;
+}
+
+float sumar(float a, float b) {
+    return a + b;
+}
+
+int sumar(int a, int b, int c) {
+    return a + b + c;
+}
+
+// recursividad y uso de un metodo declarado mas abajo
+int factorial(int n) {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+void principal() {
+    int r = 0;
+    float f = 0.0;
+    r = cuadrado(4);
+    f = promedio(10, 2);
+    r = sumar(1, 2);
+    f = sumar(1.5, 2.5);
+    r = sumar(1, 2, 3);
+    f = r;
+    saludar();
+    r = posterior(3);
+    if (esPar(r)) {
+        saludar();
+    }
+}
+
+int posterior(int x) {
+    return x + 1;
+}

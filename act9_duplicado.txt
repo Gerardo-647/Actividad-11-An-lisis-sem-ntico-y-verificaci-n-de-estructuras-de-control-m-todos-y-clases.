@@ -1,0 +1,6 @@
+class Programa {
+    void metodoPrueba() {
+        int contador = 1;
+        int contador = 2;
+    }
+}

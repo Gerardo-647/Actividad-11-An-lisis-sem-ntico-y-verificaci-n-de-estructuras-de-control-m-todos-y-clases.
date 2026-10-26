@@ -1,0 +1,4 @@
+void proceso() {
+    if(activo) { x=1; else { x=2; }
+    cout << "POSTERIOR";
+}

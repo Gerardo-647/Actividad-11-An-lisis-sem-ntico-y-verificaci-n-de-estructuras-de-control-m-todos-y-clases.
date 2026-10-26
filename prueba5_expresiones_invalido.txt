@@ -1,0 +1,15 @@
+void proceso() {
+
+    leer(a b);
+
+    escribir("Inicio"
+
+    total = a + ;
+
+    = a + b;
+
+    leer(a,,b);
+
+    escribir(,a);
+
+}

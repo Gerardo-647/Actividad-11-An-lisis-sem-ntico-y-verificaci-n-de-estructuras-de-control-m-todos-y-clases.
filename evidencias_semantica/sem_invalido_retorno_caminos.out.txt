@@ -1,0 +1,124 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - ESTRUCTURAS DE CONTROL, MÉTODOS Y CLASES
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: estructuras de control, metodos, clases y ambitos (C++, tipado estatico)
+Archivo: pruebas_semantica/sem_invalido_retorno_caminos.txt
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_relacional -> n > 0 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Regla reconocida: bloque
+Error semántico en línea 5, columna 1: El método 'a' debe devolver un valor compatible con el tipo 'int' en todos los caminos de ejecución (encontrado: '}').
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_relacional -> n > 0 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: escritura
+Regla reconocida: bloque
+Regla reconocida: seleccion_doble
+Regla reconocida: bloque
+Error semántico en línea 13, columna 1: El método 'b' debe devolver un valor compatible con el tipo 'int' en todos los caminos de ejecución (encontrado: '}').
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_relacional -> n > 0 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: ciclo_mientras
+Regla reconocida: bloque
+Error semántico en línea 19, columna 1: El método 'c' debe devolver un valor compatible con el tipo 'int' en todos los caminos de ejecución (encontrado: '}').
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: retorno
+Regla reconocida: case 1
+Regla reconocida: seleccion_multiple
+Regla reconocida: bloque
+Error semántico en línea 25, columna 1: El método 'd' debe devolver un valor compatible con el tipo 'int' en todos los caminos de ejecución (encontrado: '}').
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: condicion
+Regla reconocida: expresion_relacional -> n > 0 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: break
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Regla reconocida: bloque
+Regla reconocida: estructura_anidada
+Regla reconocida: ciclo_mientras
+Regla reconocida: bloque
+Error semántico en línea 33, columna 1: El método 'e' debe devolver un valor compatible con el tipo 'int' en todos los caminos de ejecución (encontrado: '}').
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: escritura
+Regla reconocida: bloque
+Error semántico en línea 37, columna 1: El método 'f' debe devolver un valor compatible con el tipo 'int' en todos los caminos de ejecución (encontrado: '}').
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_relacional -> n > 0 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: seleccion_doble
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 0
+  Operaciones aritméticas (+ - * / %):                             0
+  Operaciones relacionales (> < >= <= == !=):                      5
+  Operaciones lógicas (&& || !):                                   0
+  Condiciones de control (if, while, do-while, for):               6
+  Retornos de método:                                              6
+Errores detectados:
+  Incompatibilidad de tipos:                  0
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 0
+Resultado semántico: CON ERRORES (6 errores semánticos)
+================================================================================
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO: ESTRUCTURAS DE CONTROL, MÉTODOS, CLASES Y ÁMBITOS
+================================================================================
+Verificaciones realizadas:
+  Condiciones de control (if, while, do-while, for):         6
+  Instrucciones break / continue / return (contexto):        7
+  Verificaciones de switch (expresión, case, default):       2
+  Declaraciones de métodos y constructores:                  7
+  Llamadas a métodos y constructores:                        0
+  Argumentos comparados contra parámetros:                   0
+  Retornos de método (tipo) y métodos con retorno completo:  6 / 7
+  Clases declaradas o referenciadas:                         0
+  Accesos a miembros de objetos (atributos y métodos):       0
+  Resoluciones de identificadores (ámbitos):                 6
+  Ámbitos de bloque abiertos (bloque, for, switch):          9
+Errores detectados por categoría:
+  Estructuras de control (break/continue/return/switch):     0
+  Métodos (llamadas, argumentos, firmas, retorno completo):  6
+  Clases y miembros (herencia, existencia, visibilidad):     0
+  Ámbitos e identificadores (no declarado / fuera de ámbito): 0
+  Declaraciones duplicadas:                                  0
+  Tipos y constantes:                                        0
+  Otros (convención de nombres, inicialización):             0
+Resultado general: CON ERRORES (6 errores semánticos en total)
+================================================================================
+Tabla de simbolos no generada: el analisis contiene errores.
+RESULTADO: INVALIDO | errores sintacticos: 0 | errores semanticos: 6 | errores lexicos: 0 | analisis completo

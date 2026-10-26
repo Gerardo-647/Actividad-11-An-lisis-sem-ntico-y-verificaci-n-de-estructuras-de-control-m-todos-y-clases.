@@ -1,0 +1,4 @@
+void proceso() {
+    if edad>=18 { x=1; }
+    cout << "POSTERIOR";
+}

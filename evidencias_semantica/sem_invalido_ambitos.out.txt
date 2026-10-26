@@ -1,0 +1,112 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - ESTRUCTURAS DE CONTROL, MÉTODOS Y CLASES
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: estructuras de control, metodos, clases y ambitos (C++, tipado estatico)
+Archivo: pruebas_semantica/sem_invalido_ambitos.txt
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: lista_parametros
+Regla reconocida: declaracion
+Error semántico en línea 8, columna 13: el identificador 'local' ya fue declarado previamente en este ámbito (encontrado: 'local').
+Regla reconocida: declaracion
+Error semántico en línea 9, columna 13: el identificador 'parametro' ya fue declarado previamente en este ámbito (encontrado: 'parametro').
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Error semántico en línea 13, columna 17: el identificador 'interno' ya fue declarado previamente en este ámbito (encontrado: 'interno').
+Regla reconocida: declaracion
+Regla reconocida: bloque
+Error semántico en línea 15, columna 21: El identificador 'interno' no está disponible en el ámbito actual (está declarado en el ámbito 'Ambitos.uno.bloque1') (encontrado: 'interno').
+Error semántico en línea 15, columna 9: la variable 'resultado' no ha sido declarada (encontrado: 'resultado').
+Regla reconocida: asignacion
+Error semántico en línea 16, columna 9: el identificador 'usadoAntes' se utiliza antes de su declaración (se declara en la línea 17) (encontrado: 'usadoAntes').
+Regla reconocida: asignacion
+Regla reconocida: declaracion
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Error semántico en línea 21, columna 9: El identificador 'local' no está disponible en el ámbito actual (está declarado en el ámbito 'Ambitos.uno') (encontrado: 'local').
+Regla reconocida: asignacion
+Error semántico en línea 22, columna 9: El identificador 'parametro' no está disponible en el ámbito actual (está declarado en el ámbito 'Ambitos.uno') (encontrado: 'parametro').
+Regla reconocida: asignacion
+Regla reconocida: asignacion
+Error semántico en línea 24, columna 18: la variable 'variableInexistente' no ha sido declarada (encontrado: 'variableInexistente').
+Regla reconocida: escritura
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Error semántico en línea 27, columna 9: el identificador 'atributo' ya fue declarado previamente en este ámbito (encontrado: 'atributo').
+Regla reconocida: declaracion
+Regla reconocida: clase Ambitos
+Regla reconocida: declaracion
+Error semántico en línea 33, columna 17: El identificador 'atributo' no está disponible en el ámbito actual (está declarado en el ámbito 'Ambitos') (encontrado: 'atributo').
+Regla reconocida: declaracion
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: clase Otra
+Error semántico en línea 39, columna 13: El identificador 'ajeno' no está disponible en el ámbito actual (está declarado en el ámbito 'Otra') (encontrado: 'ajeno').
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Error semántico en línea 41, columna 9: el identificador 'z' ya fue declarado previamente en este ámbito (encontrado: 'z').
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: break
+Regla reconocida: case 1
+Regla reconocida: asignacion
+Regla reconocida: break
+Regla reconocida: case 2
+Regla reconocida: seleccion_multiple
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 19
+  Operaciones aritméticas (+ - * / %):                             0
+  Operaciones relacionales (> < >= <= == !=):                      0
+  Operaciones lógicas (&& || !):                                   0
+  Condiciones de control (if, while, do-while, for):               0
+  Retornos de método:                                              0
+Errores detectados:
+  Incompatibilidad de tipos:                  0
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 0
+Resultado semántico: CON ERRORES (13 errores semánticos)
+================================================================================
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO: ESTRUCTURAS DE CONTROL, MÉTODOS, CLASES Y ÁMBITOS
+================================================================================
+Verificaciones realizadas:
+  Condiciones de control (if, while, do-while, for):         0
+  Instrucciones break / continue / return (contexto):        2
+  Verificaciones de switch (expresión, case, default):       3
+  Declaraciones de métodos y constructores:                  4
+  Llamadas a métodos y constructores:                        0
+  Argumentos comparados contra parámetros:                   0
+  Retornos de método (tipo) y métodos con retorno completo:  0 / 0
+  Clases declaradas o referenciadas:                         2
+  Accesos a miembros de objetos (atributos y métodos):       0
+  Resoluciones de identificadores (ámbitos):                 13
+  Ámbitos de bloque abiertos (bloque, for, switch):          2
+Errores detectados por categoría:
+  Estructuras de control (break/continue/return/switch):     0
+  Métodos (llamadas, argumentos, firmas, retorno completo):  0
+  Clases y miembros (herencia, existencia, visibilidad):     0
+  Ámbitos e identificadores (no declarado / fuera de ámbito): 8
+  Declaraciones duplicadas:                                  5
+  Tipos y constantes:                                        0
+  Otros (convención de nombres, inicialización):             0
+Resultado general: CON ERRORES (13 errores semánticos en total)
+================================================================================
+Tabla de simbolos no generada: el analisis contiene errores.
+RESULTADO: INVALIDO | errores sintacticos: 0 | errores semanticos: 13 | errores lexicos: 0 | analisis completo

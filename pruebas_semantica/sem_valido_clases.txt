@@ -1,0 +1,80 @@
+int totalGlobal = 100;
+
+class Persona {
+private:
+    int edad = 0;
+public:
+    string nombre = "Ana";
+
+    Persona() {
+        edad = 18;
+    }
+
+    Persona(int e) {
+        edad = e;
+    }
+
+    int obtenerEdad() {
+        return edad;
+    }
+
+    void asignarEdad(int e) {
+        edad = e;
+    }
+
+    bool esMayor() {
+        return edad > limite();
+    }
+
+    int limite() {
+        return 17;
+    }
+};
+
+class Estudiante : public Persona {
+protected:
+    int semestre = 1;
+public:
+    float promedio = 0.0;
+
+    int obtenerSemestre() {
+        return semestre + totalGlobal;
+    }
+
+    void mostrar() {
+        int e = obtenerEdad();
+        escribir(e);
+    }
+};
+
+class Calculadora {
+    int base = 10;
+public:
+    int duplicar() {
+        return base * 2;
+    }
+};
+
+void principal() {
+    Persona p;
+    Persona q = Persona(30);
+    Estudiante est;
+    int valor = 0;
+    float prom = 0.0;
+    string n = "";
+
+    valor = p.obtenerEdad();
+    valor = q.obtenerEdad();
+    p.asignarEdad(25);
+    n = p.nombre;
+    p.nombre = "Luis";
+    est.promedio = 9.5;
+    prom = est.promedio;
+    valor = est.obtenerEdad();
+    valor = est.obtenerSemestre();
+    est.mostrar();
+    p = est;
+    if (p.esMayor()) {
+        valor = valor + 1;
+    }
+}

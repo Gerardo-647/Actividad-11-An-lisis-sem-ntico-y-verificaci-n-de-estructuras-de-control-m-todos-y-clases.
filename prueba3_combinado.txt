@@ -1,0 +1,19 @@
+class Empleado {
+
+    int edad;
+
+    String nombre, puesto;
+
+    final double PI = 3.1416;
+
+    int salario sueldo;
+
+    final int MAX;
+
+    boolean activo = true;
+
+    char inicial = 'A';
+
+    float bono = 250.5;
+
+}

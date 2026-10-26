@@ -1,0 +1,21 @@
+#include <iostream>
+using namespace std;
+void proceso() {
+    int edad = 0, contador = 0;
+    int opcion = 2;
+    bool activo = true;
+    cin >> edad;
+    if (edad >= 18) { cout << "Mayor de edad"; }
+    if (activo) { cout << "Activo"; } else { cout << "Inactivo"; }
+    if ((edad >= 18 && activo) || !activo) { cout << "Condicion compuesta"; }
+    switch (opcion) {
+        case 1: cout << "Uno"; break;
+        case 2: cout << "Dos"; break;
+        default: cout << "Otra opcion";
+    }
+    while (contador < 3) { contador = contador + 1; }
+    do { contador--; } while (contador > 0);
+    for (int i = 0; i < 5; i++) {
+        if (i % 2 == 0) { cout << i; } else { cout << "Impar"; }
+    }
+}

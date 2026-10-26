@@ -1,0 +1,17 @@
+void proceso() {
+    int a = 0;
+    int b = 0;
+    int edad, i, total = 0;
+    bool activo = true;
+    cin >> edad;
+    leer(a,b);
+    total = (a + b) * 2;
+    if (edad >= 18 && activo) {
+        for (i = 0; i < 3; i++) { total = total + i; }
+    } else { escribir("No cumple", total); }
+    do { total--; } while (total > 10);
+    switch (edad) { case 18: cout << "Dieciocho"; break; default: cout << edad; }
+    if (total > ) { escribir("Error recuperable"); }
+    escribir("CONTINUACION_COMBINADA", total);
+    while (!(total <= 0) && activo) { total = total - 1; }
+}

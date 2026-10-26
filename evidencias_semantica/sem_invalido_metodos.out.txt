@@ -1,0 +1,126 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - ESTRUCTURAS DE CONTROL, MÉTODOS Y CLASES
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: estructuras de control, metodos, clases y ambitos (C++, tipado estatico)
+Archivo: pruebas_semantica/sem_invalido_metodos.txt
+Regla reconocida: lista_parametros
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_aritmetica -> a + b [tipo: int]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Error semántico en línea 6, columna 5: Incompatibilidad de tipos: el método 'obtenerEdad' retorna 'int' pero se devuelve un valor de tipo 'string' (encontrado: '"veinticinco"').
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Error semántico en línea 10, columna 5: El método 'sinValor' es 'void' y no puede devolver un valor (encontrado: 'return').
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Error semántico en línea 14, columna 5: El método 'sinRetorno' debe devolver un valor de tipo 'int' (encontrado: 'return').
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_aritmetica -> suma / cantidad [tipo: int]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_aritmetica -> n * n [tipo: int]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Error semántico en línea 25, columna 5: el método 'cuadrado(int)' ya fue declarado previamente en este ámbito con la misma firma (encontrado: 'cuadrado').
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: lista_argumentos
+Error semántico en línea 32, columna 17: El método 'sumar' requiere 2 argumentos, pero se proporcionó 1 (encontrado: 'sumar').
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Error semántico en línea 33, columna 17: El método 'sumar' requiere 2 argumentos, pero se proporcionaron 3 (encontrado: 'sumar').
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Error semántico en línea 34, columna 23: El argumento 1 del método 'sumar' es de tipo 'string'; se esperaba un tipo compatible con 'int' (encontrado: '"Hola"').
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Error semántico en línea 35, columna 27: El argumento 2 del método 'sumar' es de tipo 'string'; se esperaba un tipo compatible con 'int' (encontrado: '"Mundo"').
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Error semántico en línea 36, columna 17: El método 'calcularTotal' no está declarado o no puede resolverse en este contexto (encontrado: 'calcularTotal').
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Error semántico en línea 37, columna 12: El método 'calcularPromedio' requiere 2 argumentos, pero se proporcionó 1 (encontrado: 'calcularPromedio').
+Regla reconocida: asignacion
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Error semántico en línea 38, columna 17: el método 'sinValor' es 'void' y no devuelve un valor que pueda usarse en una expresión (encontrado: 'sinValor').
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 3
+  Operaciones aritméticas (+ - * / %):                             3
+  Operaciones relacionales (> < >= <= == !=):                      0
+  Operaciones lógicas (&& || !):                                   0
+  Condiciones de control (if, while, do-while, for):               0
+  Retornos de método:                                              7
+Errores detectados:
+  Incompatibilidad de tipos:                  4
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 0
+Resultado semántico: CON ERRORES (11 errores semánticos)
+================================================================================
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO: ESTRUCTURAS DE CONTROL, MÉTODOS, CLASES Y ÁMBITOS
+================================================================================
+Verificaciones realizadas:
+  Condiciones de control (if, while, do-while, for):         0
+  Instrucciones break / continue / return (contexto):        7
+  Verificaciones de switch (expresión, case, default):       0
+  Declaraciones de métodos y constructores:                  8
+  Llamadas a métodos y constructores:                        8
+  Argumentos comparados contra parámetros:                   10
+  Retornos de método (tipo) y métodos con retorno completo:  7 / 6
+  Clases declaradas o referenciadas:                         0
+  Accesos a miembros de objetos (atributos y métodos):       0
+  Resoluciones de identificadores (ámbitos):                 15
+  Ámbitos de bloque abiertos (bloque, for, switch):          0
+Errores detectados por categoría:
+  Estructuras de control (break/continue/return/switch):     0
+  Métodos (llamadas, argumentos, firmas, retorno completo):  6
+  Clases y miembros (herencia, existencia, visibilidad):     0
+  Ámbitos e identificadores (no declarado / fuera de ámbito): 0
+  Declaraciones duplicadas:                                  1
+  Tipos y constantes:                                        4
+  Otros (convención de nombres, inicialización):             0
+Resultado general: CON ERRORES (11 errores semánticos en total)
+================================================================================
+Tabla de simbolos no generada: el analisis contiene errores.
+RESULTADO: INVALIDO | errores sintacticos: 0 | errores semanticos: 11 | errores lexicos: 0 | analisis completo

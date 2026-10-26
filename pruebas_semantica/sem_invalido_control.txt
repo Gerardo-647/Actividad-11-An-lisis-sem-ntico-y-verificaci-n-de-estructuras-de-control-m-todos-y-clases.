@@ -1,0 +1,47 @@
+class ControlErrores {
+    void probar() {
+        int contador = 5;
+        bool activo = true;
+        int opcion = 1;
+        int variable = 3;
+
+        // condiciones invalidas
+        if (contador) {
+            escribir("a");
+        }
+        while ("activo") {
+            contador = contador + 1;
+        }
+        for (int k = 0; k + 1; k++) {
+            contador = contador + 1;
+        }
+
+        // break y continue fuera de contexto
+        break;
+        continue;
+        if (activo) {
+            continue;
+        }
+
+        // continue dentro de un switch que no esta en un ciclo
+        switch (opcion) {
+            case 1: continue;
+            case 2: break;
+        }
+
+        // switch: etiquetas duplicadas, no constantes y default repetido
+        switch (opcion) {
+            case 1: contador = 1; break;
+            case 1: contador = 2; break;
+            case variable: contador = 3; break;
+            default: contador = 0; break;
+            default: contador = 9; break;
+        }
+
+        // variable del for fuera de su ciclo
+        for (int z = 0; z < 3; z++) {
+            contador = contador + z;
+        }
+        contador = z;
+    }
+}

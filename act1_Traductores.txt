@@ -1,0 +1,25 @@
+package miProyecto.moduloP;
+
+#include <iostream>
+using namespace std;
+
+class Compilador {
+private:
+    int totalTokens = 150;
+    float version = 3.14f;
+
+public:
+    void ejecutar() {
+        /* Bloque de validacion:
+           Evalua si las condiciones se cumplen */
+        if (totalTokens >= 100 && version != 0.0) {
+            string salida = "Analisis exitoso: \"C++ Lexer\"";
+            totalTokens += 1;
+        }
+    }
+};
+
+@ $ ~                           // 1. Caracteres no reconocidos
+123invalido                     // 2. Identificador mal formado
+45.12.99                        // 3. Literal numérico incorrecto
+"Esta cadena nunca cierra       // 4. Cadena mal formada (sin comilla final)

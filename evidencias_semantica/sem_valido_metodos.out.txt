@@ -1,0 +1,245 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - ESTRUCTURAS DE CONTROL, MÉTODOS Y CLASES
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: estructuras de control, metodos, clases y ambitos (C++, tipado estatico)
+Archivo: pruebas_semantica/sem_valido_metodos.txt
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_aritmetica -> n * n [tipo: int]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_aritmetica -> suma / cantidad [tipo: int]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_aritmetica -> n % 2 [tipo: int]
+Regla reconocida: expresion_relacional -> n % 2 == 0 [tipo: bool]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: escritura
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_relacional -> n < 0 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: seleccion_doble
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_relacional -> n < 0 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: expresion_relacional -> n == 0 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: seleccion_doble
+Regla reconocida: estructura_anidada
+Regla reconocida: seleccion_doble
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: condicion
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: ciclo_mientras
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: retorno
+Regla reconocida: case 1
+Regla reconocida: retorno
+Regla reconocida: default
+Regla reconocida: seleccion_multiple
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_aritmetica -> a + b [tipo: int]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_aritmetica -> a + b [tipo: float]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: lista_parametros
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_aritmetica -> a + b [tipo: int]
+Regla reconocida: expresion_aritmetica -> a + b + c [tipo: int]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_relacional -> n <= 1 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Regla reconocida: expresion_aritmetica -> n - 1 [tipo: int]
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: expresion_aritmetica -> n * factorial(n - 1) [tipo: int]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: asignacion
+Regla reconocida: asignacion
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: condicion
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_aritmetica -> x + 1 [tipo: int]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 9
+  Operaciones aritméticas (+ - * / %):                             12
+  Operaciones relacionales (> < >= <= == !=):                      5
+  Operaciones lógicas (&& || !):                                   0
+  Condiciones de control (if, while, do-while, for):               6
+  Retornos de método:                                              18
+Errores detectados:
+  Incompatibilidad de tipos:                  0
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 0
+Resultado semántico: CORRECTO (sin errores semánticos)
+================================================================================
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO: ESTRUCTURAS DE CONTROL, MÉTODOS, CLASES Y ÁMBITOS
+================================================================================
+Verificaciones realizadas:
+  Condiciones de control (if, while, do-while, for):         6
+  Instrucciones break / continue / return (contexto):        18
+  Verificaciones de switch (expresión, case, default):       3
+  Declaraciones de métodos y constructores:                  14
+  Llamadas a métodos y constructores:                        10
+  Argumentos comparados contra parámetros:                   13
+  Retornos de método (tipo) y métodos con retorno completo:  18 / 12
+  Clases declaradas o referenciadas:                         0
+  Accesos a miembros de objetos (atributos y métodos):       0
+  Resoluciones de identificadores (ámbitos):                 31
+  Ámbitos de bloque abiertos (bloque, for, switch):          9
+Errores detectados por categoría:
+  Estructuras de control (break/continue/return/switch):     0
+  Métodos (llamadas, argumentos, firmas, retorno completo):  0
+  Clases y miembros (herencia, existencia, visibilidad):     0
+  Ámbitos e identificadores (no declarado / fuera de ámbito): 0
+  Declaraciones duplicadas:                                  0
+  Tipos y constantes:                                        0
+  Otros (convención de nombres, inicialización):             0
+Resultado general: CORRECTO (sin errores semánticos)
+================================================================================
+============================================================================================================================================================================
+                                                                             TABLA DE SÍMBOLOS
+============================================================================================================================================================================
+ID                 Categoría     Tipo Dato   Valor            Ámbito            Visib.     Línea   Columna   Token Originador Detalle
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cuadrado           METODO        int         N/A              GLOBAL            -          1       5         ID               (int n) -> int
+n                  PARAMETRO     int         N/A              cuadrado          -          1       18        ID               posicion 1
+promedio           METODO        float       N/A              GLOBAL            -          5       7         ID               (int suma, int cantidad) -> float
+suma               PARAMETRO     int         N/A              promedio          -          5       20        ID               posicion 1
+cantidad           PARAMETRO     int         N/A              promedio          -          5       30        ID               posicion 2
+esPar              METODO        bool        N/A              GLOBAL            -          9       6         ID               (int n) -> bool
+n                  PARAMETRO     int         N/A              esPar             -          9       16        ID               posicion 1
+saludar            METODO        void        N/A              GLOBAL            -          13      6         ID               () -> void
+absoluto           METODO        int         N/A              GLOBAL            -          18      5         ID               (int n) -> int
+n                  PARAMETRO     int         N/A              absoluto          -          18      18        ID               posicion 1
+clasificar         METODO        int         N/A              GLOBAL            -          26      5         ID               (int n) -> int
+n                  PARAMETRO     int         N/A              clasificar        -          26      20        ID               posicion 1
+infinito           METODO        int         N/A              GLOBAL            -          36      5         ID               () -> int
+porOpcion          METODO        int         N/A              GLOBAL            -          42      5         ID               (int op) -> int
+op                 PARAMETRO     int         N/A              porOpcion         -          42      19        ID               posicion 1
+sumar              METODO        int         N/A              GLOBAL            -          50      5         ID               (int a, int b) -> int
+a                  PARAMETRO     int         N/A              sumar             -          50      15        ID               posicion 1
+b                  PARAMETRO     int         N/A              sumar             -          50      22        ID               posicion 2
+sumar              METODO        float       N/A              GLOBAL            -          54      7         ID               (float a, float b) -> float
+a                  PARAMETRO     float       N/A              sumar#2           -          54      19        ID               posicion 1
+b                  PARAMETRO     float       N/A              sumar#2           -          54      28        ID               posicion 2
+sumar              METODO        int         N/A              GLOBAL            -          58      5         ID               (int a, int b, int c) -> int
+a                  PARAMETRO     int         N/A              sumar#3           -          58      15        ID               posicion 1
+b                  PARAMETRO     int         N/A              sumar#3           -          58      22        ID               posicion 2
+c                  PARAMETRO     int         N/A              sumar#3           -          58      29        ID               posicion 3
+factorial          METODO        int         N/A              GLOBAL            -          63      5         ID               (int n) -> int
+n                  PARAMETRO     int         N/A              factorial         -          63      19        ID               posicion 1
+principal          METODO        void        N/A              GLOBAL            -          70      6         ID               () -> void
+r                  VARIABLE      int         0                principal         -          71      9         ID               
+f                  VARIABLE      float       0.0              principal         -          72      11        ID               
+posterior          METODO        int         N/A              GLOBAL            -          86      5         ID               (int x) -> int
+x                  PARAMETRO     int         N/A              posterior         -          86      19        ID               posicion 1
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total de símbolos registrados: 32
+RESULTADO: VALIDO | errores sintacticos: 0 | errores semanticos: 0 | errores lexicos: 0 | analisis completo

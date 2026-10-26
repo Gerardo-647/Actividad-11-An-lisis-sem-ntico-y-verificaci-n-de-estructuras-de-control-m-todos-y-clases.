@@ -1,0 +1,82 @@
+class Calculadora {
+    private int base = 10;
+    int privadoPorDefecto = 3;
+public:
+    int duplicar() {
+        return base * 2;
+    }
+    int duplicar() {
+        return 0;
+    }
+};
+
+class Calculadora {
+public:
+    int otra = 1;
+};
+
+class Persona {
+public:
+    int edad = 0;
+    string nombre = "x";
+    int obtenerEdad() {
+        return edad;
+    }
+private:
+    int secreto = 7;
+    int ayudante() {
+        return 1;
+    }
+};
+
+class Hijo : public Padre {
+};
+
+class Auto : public Auto {
+};
+
+class Raro {
+    Raro(int a) { }
+    otro() { }
+};
+
+class Base {
+protected:
+    int protegido = 1;
+private:
+    int privado = 2;
+};
+
+class Derivada : public Base {
+public:
+    int obtener() {
+        int a = protegido;
+        int b = privado;
+        return a + b;
+    }
+};
+
+void principal() {
+    Calculadora c;
+    Persona p;
+    Fantasma f;
+    Raro r;
+    int resultado = 0;
+
+    resultado = c.limite;
+    resultado = c.base;
+    resultado = c.privadoPorDefecto;
+    resultado = c.duplicar();
+    resultado = c.inexistente();
+    resultado = p.obtenerEdad(5);
+    resultado = p.secreto;
+    resultado = p.ayudante();
+    resultado = p.nombre;
+    p.edad = "texto";
+    p = 5;
+    resultado = p;
+    resultado = Persona(1);
+    resultado = resultado.edad;
+    p.obtenerEdad = 3;
+    resultado = p.obtenerEdad;
+}

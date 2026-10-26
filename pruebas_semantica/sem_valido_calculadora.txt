@@ -1,0 +1,33 @@
+class Calculadora {
+
+    int base = 10;
+    bool activo = true;
+
+    int sumar(int a, int b) {
+        return a + b;
+    }
+
+    bool esMayor(int valor) {
+        return valor > base;
+    }
+
+    void ejecutar() {
+        int resultado = 0;
+        bool condicion = false;
+
+        resultado = sumar(10, 20);
+        condicion = esMayor(resultado);
+
+        if (condicion) {
+            escribir("El resultado es mayor");
+        } else {
+            escribir("El resultado no es mayor");
+        }
+
+        int contador = 0;
+
+        while (contador < 3) {
+            contador = contador + 1;
+        }
+    }
+}

@@ -1,0 +1,184 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - ESTRUCTURAS DE CONTROL, MÉTODOS Y CLASES
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: estructuras de control, metodos, clases y ambitos (C++, tipado estatico)
+Archivo: pruebas_semantica/sem_valido_clases.txt
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: constructor
+Regla reconocida: lista_parametros
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: constructor
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: expresion_relacional -> edad > limite() [tipo: bool]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: clase Persona
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: expresion_aritmetica -> semestre + totalGlobal [tipo: int]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: declaracion
+Regla reconocida: escritura
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: clase Estudiante
+Regla reconocida: declaracion
+Regla reconocida: expresion_aritmetica -> base * 2 [tipo: int]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: clase Calculadora
+Regla reconocida: declaracion
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: asignacion
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: acceso_miembro -> p.nombre [tipo: string]
+Regla reconocida: asignacion
+Regla reconocida: asignacion
+Regla reconocida: asignacion
+Regla reconocida: acceso_miembro -> est.promedio [tipo: float]
+Regla reconocida: asignacion
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: asignacion
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: asignacion
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: asignacion
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: condicion
+Regla reconocida: expresion_aritmetica -> valor + 1 [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 24
+  Operaciones aritméticas (+ - * / %):                             3
+  Operaciones relacionales (> < >= <= == !=):                      1
+  Operaciones lógicas (&& || !):                                   0
+  Condiciones de control (if, while, do-while, for):               1
+  Retornos de método:                                              5
+Errores detectados:
+  Incompatibilidad de tipos:                  0
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 0
+Resultado semántico: CORRECTO (sin errores semánticos)
+================================================================================
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO: ESTRUCTURAS DE CONTROL, MÉTODOS, CLASES Y ÁMBITOS
+================================================================================
+Verificaciones realizadas:
+  Condiciones de control (if, while, do-while, for):         1
+  Instrucciones break / continue / return (contexto):        5
+  Verificaciones de switch (expresión, case, default):       0
+  Declaraciones de métodos y constructores:                  10
+  Llamadas a métodos y constructores:                        10
+  Argumentos comparados contra parámetros:                   2
+  Retornos de método (tipo) y métodos con retorno completo:  5 / 5
+  Clases declaradas o referenciadas:                         6
+  Accesos a miembros de objetos (atributos y métodos):       11
+  Resoluciones de identificadores (ámbitos):                 32
+  Ámbitos de bloque abiertos (bloque, for, switch):          1
+Errores detectados por categoría:
+  Estructuras de control (break/continue/return/switch):     0
+  Métodos (llamadas, argumentos, firmas, retorno completo):  0
+  Clases y miembros (herencia, existencia, visibilidad):     0
+  Ámbitos e identificadores (no declarado / fuera de ámbito): 0
+  Declaraciones duplicadas:                                  0
+  Tipos y constantes:                                        0
+  Otros (convención de nombres, inicialización):             0
+Resultado general: CORRECTO (sin errores semánticos)
+================================================================================
+=================================================================================================================================================================================
+                                                                                TABLA DE SÍMBOLOS
+=================================================================================================================================================================================
+ID                 Categoría     Tipo Dato   Valor               Ámbito              Visib.     Línea   Columna   Token Originador Detalle
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+totalGlobal        VARIABLE      int         100                 GLOBAL              -          1       5         ID               
+Persona            CLASE         void        N/A                 GLOBAL              -          3       7         ID               miembros: edad, nombre, Persona(), Persona(int), obtenerEdad(), asignarEdad(int), esMayor(), limite()
+edad               ATRIBUTO      int         0                   Persona             private    5       9         ID               clase propietaria: Persona
+nombre             ATRIBUTO      string      "Ana"               Persona             public     7       12        ID               clase propietaria: Persona
+Persona            CONSTRUCTOR   N/A         N/A                 Persona             public     9       5         ID               ()
+Persona            CONSTRUCTOR   N/A         N/A                 Persona             public     13      5         ID               (int e)
+e                  PARAMETRO     int         N/A                 Persona.Persona#2   -          13      17        ID               posicion 1
+obtenerEdad        METODO        int         N/A                 Persona             public     17      9         ID               () -> int
+asignarEdad        METODO        void        N/A                 Persona             public     21      10        ID               (int e) -> void
+e                  PARAMETRO     int         N/A                 Persona.asignarEdad -          21      26        ID               posicion 1
+esMayor            METODO        bool        N/A                 Persona             public     25      10        ID               () -> bool
+limite             METODO        int         N/A                 Persona             public     29      9         ID               () -> int
+Estudiante         CLASE         void        N/A                 GLOBAL              -          34      7         ID               hereda de Persona; miembros: semestre, promedio, obtenerSemestre(), mostrar()
+semestre           ATRIBUTO      int         1                   Estudiante          protected  36      9         ID               clase propietaria: Estudiante
+promedio           ATRIBUTO      float       0.0                 Estudiante          public     38      11        ID               clase propietaria: Estudiante
+obtenerSemestre    METODO        int         N/A                 Estudiante          public     40      9         ID               () -> int
+mostrar            METODO        void        N/A                 Estudiante          public     44      10        ID               () -> void
+e                  VARIABLE      int         obtenerEdad()       Estudiante.mostrar  -          45      13        ID               
+Calculadora        CLASE         void        N/A                 GLOBAL              -          50      7         ID               miembros: base, duplicar()
+base               ATRIBUTO      int         10                  Calculadora         private    51      9         ID               clase propietaria: Calculadora
+duplicar           METODO        int         N/A                 Calculadora         public     53      9         ID               () -> int
+principal          METODO        void        N/A                 GLOBAL              -          58      6         ID               () -> void
+p                  VARIABLE      Persona     constructor_defecto principal           -          59      13        ID               
+q                  VARIABLE      Persona     Persona(30)         principal           -          60      13        ID               
+est                VARIABLE      Estudiante  constructor_defecto principal           -          61      16        ID               
+valor              VARIABLE      int         0                   principal           -          62      9         ID               
+prom               VARIABLE      float       0.0                 principal           -          63      11        ID               
+n                  VARIABLE      string      ""                  principal           -          64      12        ID               
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total de símbolos registrados: 28
+RESULTADO: VALIDO | errores sintacticos: 0 | errores semanticos: 0 | errores lexicos: 0 | analisis completo

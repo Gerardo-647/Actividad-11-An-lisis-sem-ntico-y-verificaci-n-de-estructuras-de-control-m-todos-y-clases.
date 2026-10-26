@@ -1,0 +1,68 @@
+class Promocion {
+    int entero = 7;
+    float flotante = 2.5;
+    double doble = 1.5;
+    char letra = 'A';
+    string saludo = "Hola";
+    bool bandera = true;
+    const int LIMITE = 100;
+
+    void calcular() {
+        float f = 0.0;
+        double d = 0.0;
+        int i = 0;
+        string texto = "";
+        bool b = false;
+
+        // int + float -> float (promoción); float -> double (ensanchamiento)
+        f = entero + flotante;
+        d = flotante * doble;
+        d = f + entero;
+        // char participa como entero
+        i = letra + 1;
+        i = entero % 3;
+        // concatenación de cadenas
+        texto = saludo + " mundo";
+        texto += "!";
+        // asignación compuesta numérica
+        f += 1;
+        i *= 2;
+        // relacionales
+        b = entero > flotante;
+        b = letra == 'A';
+        b = saludo == texto;
+        b = bandera != false;
+        // lógicas
+        b = (entero >= 1) && (flotante <= 3.0) || !bandera;
+        // incremento y lectura (no constantes)
+        i++;
+        --i;
+        cin >> i;
+        // lectura de constantes en expresiones
+        i = LIMITE - entero;
+        while (i < LIMITE && !bandera) { i = i + 1; }
+        do { i--; } while (i > 0);
+        for (int k = 0; k < LIMITE; k++) { f = f + 0.5; }
+        switch (entero) { case 1: i = 1; break; case 2: i = 2; break; default: i = 0; }
+    }
+
+    int doble2(int x) {
+        return x * 2;
+    }
+
+    float mitad(float x) {
+        return x / 2;
+    }
+
+    bool esPositivo(int x) {
+        return x > 0;
+    }
+
+    void usarMetodos() {
+        int r = 0;
+        float m = 0.0;
+        r = doble2(4);
+        m = mitad(3.0) + doble2(2);
+        if (esPositivo(r)) { r = 1; }
+    }
+}

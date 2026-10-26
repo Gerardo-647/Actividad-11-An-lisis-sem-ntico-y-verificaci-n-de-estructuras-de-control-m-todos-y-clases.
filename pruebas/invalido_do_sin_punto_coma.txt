@@ -1,0 +1,4 @@
+void proceso() {
+    do { i++; } while(i<10)
+    cout << "POSTERIOR";
+}

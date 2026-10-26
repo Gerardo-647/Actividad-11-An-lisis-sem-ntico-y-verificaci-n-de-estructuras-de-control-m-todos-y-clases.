@@ -1,0 +1,11 @@
+void proceso() {
+    int edad = 0;
+    bool activo = false;
+    bool admin = false;
+    int a = 0;
+    int b = 0;
+    int c = 0;
+    int x = 0;
+    if ((edad>=18 && activo) || !admin) { x=(a+b)*c; }
+    cout << "POSTERIOR";
+}

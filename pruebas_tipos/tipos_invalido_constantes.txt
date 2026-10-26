@@ -1,0 +1,20 @@
+class Constantes {
+    const int LIMITE = 100;
+    const float PI = 3.1416;
+    int normal = 1;
+
+    void ejecutar() {
+        int x = 0;
+        // lectura permitida
+        x = LIMITE + 1;
+        // modificaciones prohibidas
+        LIMITE = 200;
+        PI += 1.0;
+        LIMITE++;
+        --PI;
+        cin >> LIMITE;
+        leer(PI);
+        // modificable
+        normal = 5;
+    }
+}

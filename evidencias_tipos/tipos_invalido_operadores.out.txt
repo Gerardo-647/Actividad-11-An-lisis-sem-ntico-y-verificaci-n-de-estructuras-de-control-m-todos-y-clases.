@@ -1,0 +1,80 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - VERIFICACIÓN DE TIPOS
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: tabla de simbolos y verificacion de tipos (C++, tipado estatico)
+Archivo: pruebas_tipos/tipos_invalido_operadores.txt
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Error semántico en línea 12, columna 15: El operador aritmético '+' no es aplicable a los operandos de tipo 'int' y 'bool' (encontrado: '+').
+Regla reconocida: asignacion
+Error semántico en línea 13, columna 15: El operador aritmético '*' no es aplicable a los operandos de tipo 'bool' y 'bool' (encontrado: '*').
+Regla reconocida: asignacion
+Error semántico en línea 14, columna 15: El operador aritmético '-' no es aplicable a los operandos de tipo 'string' y 'int' (encontrado: '-').
+Regla reconocida: asignacion
+Error semántico en línea 15, columna 15: El operador '%' solo es aplicable a operandos enteros (int/char), se encontró 'float' y 'int' (encontrado: '%').
+Regla reconocida: asignacion
+Error semántico en línea 16, columna 15: El operador aritmético '*' no es aplicable a los operandos de tipo 'string' y 'int' (encontrado: '*').
+Regla reconocida: asignacion
+Error semántico en línea 17, columna 15: El operador '+' solo concatena operandos de tipo 'string', se encontró 'string' y 'int' (encontrado: '+').
+Regla reconocida: asignacion
+Error semántico en línea 19, columna 15: El operador relacional '>' requiere operandos numéricos, se encontró 'string' y 'string'; con string y bool solo se permiten == y != (encontrado: '>').
+Regla reconocida: asignacion
+Error semántico en línea 20, columna 15: El operador relacional '<' requiere operandos numéricos, se encontró 'bool' y 'int'; con string y bool solo se permiten == y != (encontrado: '<').
+Regla reconocida: asignacion
+Error semántico en línea 21, columna 15: Incompatibilidad de tipos: no se pueden comparar con '==' operandos de tipo 'string' y 'int' (encontrado: '==').
+Regla reconocida: asignacion
+Error semántico en línea 22, columna 15: Incompatibilidad de tipos: no se pueden comparar con '==' operandos de tipo 'bool' y 'int' (encontrado: '==').
+Regla reconocida: asignacion
+Error semántico en línea 24, columna 15: El operador lógico '&&' requiere operandos de tipo 'bool', se encontró 'int' y 'bool' (encontrado: '&&').
+Regla reconocida: asignacion
+Error semántico en línea 25, columna 15: El operador lógico '||' requiere operandos de tipo 'bool', se encontró 'bool' y 'float' (encontrado: '||').
+Regla reconocida: asignacion
+Error semántico en línea 26, columna 13: El operador lógico '!' requiere un operando de tipo 'bool', se encontró 'int' (encontrado: '!').
+Regla reconocida: asignacion
+Error semántico en línea 27, columna 13: El operador unario '-' requiere un operando numérico, se encontró 'bool' (encontrado: '-').
+Regla reconocida: asignacion
+Error semántico en línea 28, columna 13: El operador unario '-' requiere un operando numérico, se encontró 'string' (encontrado: '-').
+Regla reconocida: asignacion
+Error semántico en línea 30, columna 9: El operador aritmético '+' no es aplicable a los operandos de tipo 'bool' y 'int' (encontrado: '+=').
+Regla reconocida: asignacion
+Error semántico en línea 31, columna 9: El operador aritmético '-' no es aplicable a los operandos de tipo 'int' y 'string' (encontrado: '-=').
+Regla reconocida: asignacion
+Regla reconocida: expresion_aritmetica -> n / f [tipo: float]
+Error semántico en línea 32, columna 9: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'float' a la variable 'r' de tipo 'int' (encontrado: 'r').
+Regla reconocida: asignacion
+Regla reconocida: asignacion
+Error semántico en línea 34, columna 9: El operador '++' solo es aplicable a operandos numéricos, se encontró 'bool' (encontrado: 'b').
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: clase Operadores
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 10
+  Operaciones aritméticas (+ - * / %):                             11
+  Operaciones relacionales (> < >= <= == !=):                      4
+  Operaciones lógicas (&& || !):                                   3
+  Condiciones de control (if, while, do-while, for):               0
+  Retornos de método:                                              0
+Errores detectados:
+  Incompatibilidad de tipos:                  19
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 0
+Resultado semántico: CON ERRORES (19 errores semánticos)
+================================================================================
+Tabla de simbolos no generada: el analisis contiene errores.
+RESULTADO: INVALIDO | errores sintacticos: 0 | errores semanticos: 19 | errores lexicos: 0 | analisis completo

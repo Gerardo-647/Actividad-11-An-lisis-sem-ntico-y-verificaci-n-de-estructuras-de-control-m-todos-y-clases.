@@ -1,0 +1,4 @@
+void proceso() {
+    leer(a b);
+    cout << "POSTERIOR";
+}

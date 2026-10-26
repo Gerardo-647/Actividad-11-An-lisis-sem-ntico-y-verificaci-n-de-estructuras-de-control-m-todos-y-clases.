@@ -1,0 +1,44 @@
+class Banco {
+    private double saldo = 0.0;
+public:
+    int cuenta = 1;
+
+    bool depositar(double monto) {
+        if (monto) {
+            saldo = saldo + monto;
+        }
+    }
+
+    double consultar() {
+        return "saldo";
+    }
+};
+
+void operar() {
+    Banco b;
+    Banco c = Banco(5);
+    double s = 0.0;
+    int i = 0;
+
+    s = b.saldo;
+    s = b.consultar(1);
+    b.retirar(10.0);
+    b.cuenta = "abc";
+    while (i) {
+        break;
+        continue;
+    }
+    for (int k = 0; k < 3; k++) {
+        s = s + k;
+    }
+    s = k;
+    s = calcular(1, 2);
+    i = depositar(3.0);
+    continue;
+}
+
+int sinRetorno(int n) {
+    if (n > 1) {
+        return 1;
+    }
+}

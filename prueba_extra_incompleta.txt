@@ -1,0 +1,7 @@
+class Prueba {
+
+    int ;
+
+    float bono = 100;
+
+}

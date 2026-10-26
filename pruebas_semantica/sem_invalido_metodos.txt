@@ -1,0 +1,40 @@
+int sumar(int a, int b) {
+    return a + b;
+}
+
+int obtenerEdad() {
+    return "veinticinco";
+}
+
+void sinValor() {
+    return 5;
+}
+
+int sinRetorno() {
+    return;
+}
+
+float calcularPromedio(int suma, int cantidad) {
+    return suma / cantidad;
+}
+
+int cuadrado(int n) {
+    return n * n;
+}
+
+int cuadrado(int m) {
+    return m;
+}
+
+void usar() {
+    int resultado = 0;
+    float prom = 0.0;
+    resultado = sumar(10);
+    resultado = sumar(1, 2, 3);
+    resultado = sumar("Hola", 20);
+    resultado = sumar(10, "Mundo");
+    resultado = calcularTotal(1, 2);
+    prom = calcularPromedio(100);
+    resultado = sinValor();
+    resultado = cuadrado(2);
+}

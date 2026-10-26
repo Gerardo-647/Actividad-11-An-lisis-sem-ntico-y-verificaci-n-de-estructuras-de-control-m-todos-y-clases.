@@ -1,0 +1,38 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANALIZADOR LÉXICO Y SINTÁCTICO
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+ACTIVIDAD 9 - Analisis semantico: tabla de simbolos y tipos de datos
+Archivo: act9_valido_completo.txt
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: constante
+Regla reconocida: lista_parametros
+Regla reconocida: declaracion
+Regla reconocida: expresion_aritmetica -> resultadoBase * factor
+Regla reconocida: asignacion
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: clase ProcesadorDatos
+Regla reconocida: archivo
+========================================================================================================================
+                                                   TABLA DE SÍMBOLOS
+========================================================================================================================
+ID                 Categoría     Tipo Dato   Valor            Ámbito            Línea   Columna   Token Originador
+------------------------------------------------------------------------------------------------------------------------
+ProcesadorDatos    CLASE         void        N/A              GLOBAL            1       7         ID              
+contadorGlobal     ATRIBUTO      int         null             ProcesadorDatos   2       9         ID              
+estadoActivo       ATRIBUTO      bool        true             ProcesadorDatos   3       10        ID              
+PI                 CONSTANTE     float       3.1416           ProcesadorDatos   4       17        ID              
+ejecutarCalculo    METODO        int         N/A              ProcesadorDatos   6       9         ID              
+factor             VARIABLE      int         N/A              ejecutarCalculo   6       29        ID              
+resultadoBase      VARIABLE      int         10               ejecutarCalculo   7       13        ID              
+------------------------------------------------------------------------------------------------------------------------
+Total de símbolos registrados: 7
+RESULTADO: VALIDO | errores sintacticos: 0 | errores semanticos: 0 | errores lexicos: 0 | analisis completo

@@ -1,0 +1,4 @@
+void proceso() {
+    const int MAX;
+    cout << "POSTERIOR";
+}

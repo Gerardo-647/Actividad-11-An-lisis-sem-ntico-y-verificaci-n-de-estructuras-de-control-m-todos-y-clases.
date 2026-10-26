@@ -1,0 +1,44 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - VERIFICACIÓN DE TIPOS
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: tabla de simbolos y verificacion de tipos (C++, tipado estatico)
+Archivo: pruebas_tipos/tipos_invalido_cascada.txt
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Error semántico en línea 6, columna 14: la variable 'noExiste' no ha sido declarada (encontrado: 'noExiste').
+Regla reconocida: asignacion
+Error semántico en línea 7, columna 13: la variable 'noExiste2' no ha sido declarada (encontrado: 'noExiste2').
+Regla reconocida: expresion_relacional -> n > 0 [tipo: bool]
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Error semántico en línea 8, columna 23: El operador lógico '&&' requiere operandos de tipo 'bool', se encontró 'bool' y 'int' (encontrado: '&&').
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: clase Cascada
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 3
+  Operaciones aritméticas (+ - * / %):                             3
+  Operaciones relacionales (> < >= <= == !=):                      2
+  Operaciones lógicas (&& || !):                                   2
+  Condiciones de control (if, while, do-while, for):               1
+  Retornos de método:                                              0
+Errores detectados:
+  Incompatibilidad de tipos:                  1
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 2
+Resultado semántico: CON ERRORES (3 errores semánticos)
+================================================================================
+Tabla de simbolos no generada: el analisis contiene errores.
+RESULTADO: INVALIDO | errores sintacticos: 0 | errores semanticos: 3 | errores lexicos: 0 | analisis completo

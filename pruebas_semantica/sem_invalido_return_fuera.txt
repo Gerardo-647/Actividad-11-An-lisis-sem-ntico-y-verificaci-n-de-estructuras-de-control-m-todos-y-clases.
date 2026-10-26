@@ -1,0 +1,10 @@
+return 5;
+
+class Prueba {
+    int valor = 1;
+    return valor;
+
+    int obtener() {
+        return valor;
+    }
+}

@@ -1,0 +1,317 @@
+[
+  {
+    "archivo": "prueba10_recuperacion.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "prueba11_combinado.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "prueba1_valido.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "prueba2_invalido.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 2 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "prueba3_combinado.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 2 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "prueba4_expresiones_valido.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "prueba5_expresiones_invalido.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 4 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "prueba6_expresiones_combinado.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 5 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "prueba7_control_valido.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "prueba8_control_invalido.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 5 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "prueba9_anidamiento.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "prueba_extra_incompleta.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/invalido_case_sin_dos_puntos.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 2 | errores léxicos: 0 | análisis detenido"
+  },
+  {
+    "archivo": "pruebas/invalido_case_sin_valor.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/invalido_coma_duplicada.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/invalido_condicion_incompleta.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/invalido_constante_sin_valor.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/invalido_do_sin_punto_coma.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/invalido_else_falta_llave.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/invalido_else_sin_if.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis detenido"
+  },
+  {
+    "archivo": "pruebas/invalido_falta_coma.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/invalido_for_incompleto.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/invalido_for_sin_separador.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/invalido_if_sin_parentesis.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/invalido_lexico.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 1 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/invalido_llave_faltante.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis detenido"
+  },
+  {
+    "archivo": "pruebas/invalido_operando_faltante.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/invalido_switch_sin_condicion.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 2 | errores léxicos: 0 | análisis detenido"
+  },
+  {
+    "archivo": "pruebas/invalido_while_sin_cierre.txt",
+    "esperado": 1,
+    "obtenido": 1,
+    "correcta": true,
+    "resumen": "RESULTADO: INVÁLIDO | errores sintácticos: 1 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/valido_agrupacion.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/valido_anidamiento.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/valido_compatibilidad.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/valido_condicion_compuesta.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/valido_const_cpp.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/valido_do_while.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/valido_for.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/valido_for_declaracion.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/valido_for_vacio.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/valido_if_doble.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/valido_if_multiple.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/valido_if_simple.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/valido_io.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/valido_relacionales.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/valido_switch.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  },
+  {
+    "archivo": "pruebas/valido_while.txt",
+    "esperado": 0,
+    "obtenido": 0,
+    "correcta": true,
+    "resumen": "RESULTADO: VÁLIDO | errores sintácticos: 0 | errores léxicos: 0 | análisis completo"
+  }
+]

@@ -1,0 +1,117 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - ESTRUCTURAS DE CONTROL, MÉTODOS Y CLASES
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: estructuras de control, metodos, clases y ambitos (C++, tipado estatico)
+Archivo: pruebas_semantica/sem_invalido_multiple.txt
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: lista_parametros
+Error semántico en línea 7, columna 13: La expresión dentro de la condición 'if' debe ser de tipo 'bool', se encontró 'double' (encontrado: 'monto').
+Regla reconocida: expresion_aritmetica -> saldo + monto [tipo: double]
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Regla reconocida: bloque
+Error semántico en línea 10, columna 5: El método 'depositar' debe devolver un valor compatible con el tipo 'bool' en todos los caminos de ejecución (encontrado: '}').
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Error semántico en línea 13, columna 9: Incompatibilidad de tipos: el método 'consultar' retorna 'double' pero se devuelve un valor de tipo 'string' (encontrado: '"saldo"').
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: clase Banco
+Regla reconocida: declaracion
+Regla reconocida: lista_argumentos
+Error semántico en línea 19, columna 15: La clase 'Banco' no declara constructores con parámetros; el constructor por defecto no recibe argumentos (se proporcionaron 1) (encontrado: 'Banco').
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Error semántico en línea 23, columna 11: No se permite acceder al miembro 'saldo' (private en la clase 'Banco') desde el contexto actual debido a sus restricciones de visibilidad (encontrado: 'saldo').
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Error semántico en línea 24, columna 11: El método 'consultar' de la clase 'Banco' requiere 0 argumentos, pero se proporcionó 1 (encontrado: 'consultar').
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Error semántico en línea 25, columna 7: El método 'retirar' no está declarado en la clase 'Banco' (encontrado: 'retirar').
+Error semántico en línea 26, columna 5: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'string' al atributo 'b.cuenta' de tipo 'int' (encontrado: 'b.cuenta').
+Regla reconocida: asignacion
+Error semántico en línea 27, columna 12: La expresión dentro de la condición 'while' debe ser de tipo 'bool', se encontró 'int' (encontrado: 'i').
+Regla reconocida: break
+Regla reconocida: continue
+Regla reconocida: bloque
+Regla reconocida: ciclo_mientras
+Regla reconocida: expresion_relacional -> k < 3 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: expresion_aritmetica -> s + k [tipo: double]
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: ciclo_para
+Error semántico en línea 34, columna 9: El identificador 'k' no está disponible en el ámbito actual (está declarado en el ámbito 'operar.for1') (encontrado: 'k').
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Error semántico en línea 35, columna 9: El método 'calcular' no está declarado o no puede resolverse en este contexto (encontrado: 'calcular').
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Error semántico en línea 36, columna 9: El método 'depositar' no está declarado o no puede resolverse en este contexto (encontrado: 'depositar').
+Regla reconocida: asignacion
+Error semántico en línea 37, columna 5: La instrucción 'continue' solo puede utilizarse dentro de un ciclo (while, do-while o for) (encontrado: 'continue').
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_relacional -> n > 1 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Regla reconocida: bloque
+Error semántico en línea 44, columna 1: El método 'sinRetorno' debe devolver un valor compatible con el tipo 'int' en todos los caminos de ejecución (encontrado: '}').
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 9
+  Operaciones aritméticas (+ - * / %):                             2
+  Operaciones relacionales (> < >= <= == !=):                      2
+  Operaciones lógicas (&& || !):                                   0
+  Condiciones de control (if, while, do-while, for):               4
+  Retornos de método:                                              2
+Errores detectados:
+  Incompatibilidad de tipos:                  4
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 0
+Resultado semántico: CON ERRORES (14 errores semánticos)
+================================================================================
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO: ESTRUCTURAS DE CONTROL, MÉTODOS, CLASES Y ÁMBITOS
+================================================================================
+Verificaciones realizadas:
+  Condiciones de control (if, while, do-while, for):         4
+  Instrucciones break / continue / return (contexto):        5
+  Verificaciones de switch (expresión, case, default):       0
+  Declaraciones de métodos y constructores:                  4
+  Llamadas a métodos y constructores:                        5
+  Argumentos comparados contra parámetros:                   1
+  Retornos de método (tipo) y métodos con retorno completo:  2 / 3
+  Clases declaradas o referenciadas:                         3
+  Accesos a miembros de objetos (atributos y métodos):       4
+  Resoluciones de identificadores (ámbitos):                 21
+  Ámbitos de bloque abiertos (bloque, for, switch):          5
+Errores detectados por categoría:
+  Estructuras de control (break/continue/return/switch):     1
+  Métodos (llamadas, argumentos, firmas, retorno completo):  6
+  Clases y miembros (herencia, existencia, visibilidad):     2
+  Ámbitos e identificadores (no declarado / fuera de ámbito): 1
+  Declaraciones duplicadas:                                  0
+  Tipos y constantes:                                        4
+  Otros (convención de nombres, inicialización):             0
+Resultado general: CON ERRORES (14 errores semánticos en total)
+================================================================================
+Tabla de simbolos no generada: el analisis contiene errores.
+RESULTADO: INVALIDO | errores sintacticos: 0 | errores semanticos: 14 | errores lexicos: 0 | analisis completo

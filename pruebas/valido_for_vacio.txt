@@ -1,0 +1,4 @@
+void proceso() {
+    for (;;) { break; }
+    cout << "POSTERIOR";
+}

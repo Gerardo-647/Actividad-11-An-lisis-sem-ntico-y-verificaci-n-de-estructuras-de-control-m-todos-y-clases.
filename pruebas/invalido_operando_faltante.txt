@@ -1,0 +1,4 @@
+void proceso() {
+    total=a+;
+    cout << "POSTERIOR";
+}

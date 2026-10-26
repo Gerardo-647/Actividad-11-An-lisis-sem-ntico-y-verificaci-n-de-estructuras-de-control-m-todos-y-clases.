@@ -1,0 +1,14 @@
+class Retornos {
+    int bueno() { return 1; }
+    int malo() { return "texto"; }
+    bool tambienMalo() { return 5; }
+    void soloVoid() { return 3; }
+    int sinValor() { return; }
+    float promovido() { return 1; }
+    void ejecutar() {
+        int x = 0;
+        x = soloVoid();
+        x = bueno() + malo();
+        string s = bueno();
+    }
+}

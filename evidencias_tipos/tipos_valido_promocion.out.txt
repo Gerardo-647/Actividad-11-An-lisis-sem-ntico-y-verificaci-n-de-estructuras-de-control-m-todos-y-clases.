@@ -1,0 +1,179 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - VERIFICACIÓN DE TIPOS
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: tabla de simbolos y verificacion de tipos (C++, tipado estatico)
+Archivo: pruebas_tipos/tipos_valido_promocion.txt
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: constante
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: expresion_aritmetica -> entero + flotante [tipo: float]
+Regla reconocida: asignacion
+Regla reconocida: expresion_aritmetica -> flotante * doble [tipo: double]
+Regla reconocida: asignacion
+Regla reconocida: expresion_aritmetica -> f + entero [tipo: float]
+Regla reconocida: asignacion
+Regla reconocida: expresion_aritmetica -> letra + 1 [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: expresion_aritmetica -> entero % 3 [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: expresion_aritmetica -> saludo + " mundo" [tipo: string]
+Regla reconocida: asignacion
+Regla reconocida: asignacion
+Regla reconocida: asignacion
+Regla reconocida: asignacion
+Regla reconocida: expresion_relacional -> entero > flotante [tipo: bool]
+Regla reconocida: asignacion
+Regla reconocida: expresion_relacional -> letra == 'A' [tipo: bool]
+Regla reconocida: asignacion
+Regla reconocida: expresion_relacional -> saludo == texto [tipo: bool]
+Regla reconocida: asignacion
+Regla reconocida: expresion_relacional -> bandera != false [tipo: bool]
+Regla reconocida: asignacion
+Regla reconocida: expresion_relacional -> entero >= 1 [tipo: bool]
+Regla reconocida: expresion_relacional -> flotante <= 3.0 [tipo: bool]
+Regla reconocida: expresion_logica -> (entero >= 1) && (flotante <= 3.0) [tipo: bool]
+Regla reconocida: expresion_logica -> !bandera [tipo: bool]
+Regla reconocida: expresion_logica -> (entero >= 1) && (flotante <= 3.0) || !bandera [tipo: bool]
+Regla reconocida: asignacion
+Regla reconocida: asignacion
+Regla reconocida: asignacion
+Regla reconocida: lectura
+Regla reconocida: expresion_aritmetica -> LIMITE - entero [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: expresion_relacional -> i < LIMITE [tipo: bool]
+Regla reconocida: expresion_logica -> !bandera [tipo: bool]
+Regla reconocida: expresion_logica -> i < LIMITE && !bandera [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: expresion_aritmetica -> i + 1 [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: ciclo_mientras
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: expresion_relacional -> i > 0 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: ciclo_hacer_mientras
+Regla reconocida: expresion_relacional -> k < LIMITE [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: expresion_aritmetica -> f + 0.5 [tipo: float]
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: ciclo_para
+Regla reconocida: asignacion
+Regla reconocida: break
+Regla reconocida: case 1
+Regla reconocida: asignacion
+Regla reconocida: break
+Regla reconocida: case 2
+Regla reconocida: asignacion
+Regla reconocida: default
+Regla reconocida: seleccion_multiple
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_aritmetica -> x * 2 [tipo: int]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_aritmetica -> x / 2 [tipo: float]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_relacional -> x > 0 [tipo: bool]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: expresion_aritmetica -> mitad(3.0) + doble2(2) [tipo: float]
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: condicion
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: clase Promocion
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 38
+  Operaciones aritméticas (+ - * / %):                             15
+  Operaciones relacionales (> < >= <= == !=):                      10
+  Operaciones lógicas (&& || !):                                   5
+  Condiciones de control (if, while, do-while, for):               4
+  Retornos de método:                                              3
+Errores detectados:
+  Incompatibilidad de tipos:                  0
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 0
+Resultado semántico: CORRECTO (sin errores semánticos)
+================================================================================
+========================================================================================================================
+                                                   TABLA DE SÍMBOLOS
+========================================================================================================================
+ID                 Categoría     Tipo Dato   Valor            Ámbito            Línea   Columna   Token Originador
+------------------------------------------------------------------------------------------------------------------------
+Promocion          CLASE         void        N/A              GLOBAL            1       7         ID              
+entero             ATRIBUTO      int         7                Promocion         2       9         ID              
+flotante           ATRIBUTO      float       2.5              Promocion         3       11        ID              
+doble              ATRIBUTO      double      1.5              Promocion         4       12        ID              
+letra              ATRIBUTO      char        'A'              Promocion         5       10        ID              
+saludo             ATRIBUTO      string      "Hola"           Promocion         6       12        ID              
+bandera            ATRIBUTO      bool        true             Promocion         7       10        ID              
+LIMITE             CONSTANTE     int         100              Promocion         8       15        ID              
+calcular           METODO        void        N/A              Promocion         10      10        ID              
+f                  VARIABLE      float       0.0              calcular          11      15        ID              
+d                  VARIABLE      double      0.0              calcular          12      16        ID              
+i                  VARIABLE      int         0                calcular          13      13        ID              
+texto              VARIABLE      string      ""               calcular          14      16        ID              
+b                  VARIABLE      bool        false            calcular          15      14        ID              
+k                  VARIABLE      int         0                calcular          45      18        ID              
+doble2             METODO        int         N/A              Promocion         49      9         ID              
+x                  VARIABLE      int         N/A              doble2            49      20        ID              
+mitad              METODO        float       N/A              Promocion         53      11        ID              
+x                  VARIABLE      float       N/A              mitad             53      23        ID              
+esPositivo         METODO        bool        N/A              Promocion         57      10        ID              
+x                  VARIABLE      int         N/A              esPositivo        57      25        ID              
+usarMetodos        METODO        void        N/A              Promocion         61      10        ID              
+r                  VARIABLE      int         0                usarMetodos       62      13        ID              
+m                  VARIABLE      float       0.0              usarMetodos       63      15        ID              
+------------------------------------------------------------------------------------------------------------------------
+Total de símbolos registrados: 24
+RESULTADO: VALIDO | errores sintacticos: 0 | errores semanticos: 0 | errores lexicos: 0 | analisis completo

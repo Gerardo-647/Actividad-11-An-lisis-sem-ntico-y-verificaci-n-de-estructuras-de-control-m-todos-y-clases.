@@ -1,0 +1,151 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - ESTRUCTURAS DE CONTROL, MÉTODOS Y CLASES
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: estructuras de control, metodos, clases y ambitos (C++, tipado estatico)
+Archivo: pruebas_semantica/sem_invalido_clases.txt
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: expresion_aritmetica -> base * 2 [tipo: int]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Error semántico en línea 8, columna 9: el método 'duplicar()' ya fue declarado previamente en este ámbito con la misma firma (encontrado: 'duplicar').
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: clase Calculadora
+Error semántico en línea 13, columna 7: el identificador 'Calculadora' ya fue declarado previamente en este ámbito (encontrado: 'Calculadora').
+Regla reconocida: declaracion
+Regla reconocida: clase Calculadora
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: declaracion
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: clase Persona
+Error semántico en línea 32, columna 21: La clase base 'Padre' no está declarada (encontrado: 'Padre').
+Regla reconocida: clase Hijo
+Error semántico en línea 35, columna 21: La clase 'Auto' no puede heredar de sí misma (encontrado: 'Auto').
+Regla reconocida: clase Auto
+Regla reconocida: lista_parametros
+Regla reconocida: bloque
+Regla reconocida: constructor
+Error semántico en línea 40, columna 5: El método 'otro' no tiene tipo de retorno: solo los constructores, que se llaman como la clase 'Raro', pueden omitirlo (encontrado: 'otro').
+Regla reconocida: bloque
+Regla reconocida: constructor
+Regla reconocida: clase Raro
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: clase Base
+Regla reconocida: declaracion
+Error semántico en línea 54, columna 17: No se permite acceder al miembro 'privado' (private en la clase 'Base') desde el contexto actual debido a sus restricciones de visibilidad (encontrado: 'privado').
+Regla reconocida: declaracion
+Regla reconocida: expresion_aritmetica -> a + b [tipo: int]
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: clase Derivada
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Error semántico en línea 62, columna 5: La clase 'Fantasma' no está declarada (encontrado: 'Fantasma').
+Regla reconocida: declaracion
+Error semántico en línea 63, columna 10: La clase 'Raro' no tiene un constructor sin parámetros; el objeto 'r' debe inicializarse con uno de sus constructores (encontrado: 'r').
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Error semántico en línea 66, columna 19: El atributo 'limite' no está declarado en la clase 'Calculadora' (encontrado: 'limite').
+Regla reconocida: asignacion
+Error semántico en línea 67, columna 19: No se permite acceder al miembro 'base' (private en la clase 'Calculadora') desde el contexto actual debido a sus restricciones de visibilidad (encontrado: 'base').
+Regla reconocida: asignacion
+Error semántico en línea 68, columna 19: No se permite acceder al miembro 'privadoPorDefecto' (private en la clase 'Calculadora') desde el contexto actual debido a sus restricciones de visibilidad (encontrado: 'privadoPorDefecto').
+Regla reconocida: asignacion
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: asignacion
+Error semántico en línea 70, columna 19: El método 'inexistente' no está declarado en la clase 'Calculadora' (encontrado: 'inexistente').
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Error semántico en línea 71, columna 19: El método 'obtenerEdad' de la clase 'Persona' requiere 0 argumentos, pero se proporcionó 1 (encontrado: 'obtenerEdad').
+Regla reconocida: asignacion
+Error semántico en línea 72, columna 19: No se permite acceder al miembro 'secreto' (private en la clase 'Persona') desde el contexto actual debido a sus restricciones de visibilidad (encontrado: 'secreto').
+Regla reconocida: asignacion
+Error semántico en línea 73, columna 19: No se permite acceder al miembro 'ayudante' (private en la clase 'Persona') desde el contexto actual debido a sus restricciones de visibilidad (encontrado: 'ayudante').
+Regla reconocida: asignacion
+Regla reconocida: acceso_miembro -> p.nombre [tipo: string]
+Error semántico en línea 74, columna 5: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'string' a la variable 'resultado' de tipo 'int' (encontrado: 'resultado').
+Regla reconocida: asignacion
+Error semántico en línea 75, columna 5: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'string' al atributo 'p.edad' de tipo 'int' (encontrado: 'p.edad').
+Regla reconocida: asignacion
+Error semántico en línea 76, columna 5: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'int' a la variable 'p' de tipo 'Persona' (encontrado: 'p').
+Regla reconocida: asignacion
+Error semántico en línea 77, columna 5: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'Persona' a la variable 'resultado' de tipo 'int' (encontrado: 'resultado').
+Regla reconocida: asignacion
+Regla reconocida: lista_argumentos
+Error semántico en línea 78, columna 17: La clase 'Persona' no declara constructores con parámetros; el constructor por defecto no recibe argumentos (se proporcionaron 1) (encontrado: 'Persona').
+Regla reconocida: asignacion
+Error semántico en línea 79, columna 27: El identificador 'resultado' es de tipo 'int' y no posee miembros; no se puede acceder a 'edad' (encontrado: 'edad').
+Regla reconocida: asignacion
+Error semántico en línea 80, columna 7: 'obtenerEdad' es un método de la clase 'Persona'; para invocarlo use 'p.obtenerEdad(...)' (encontrado: 'obtenerEdad').
+Regla reconocida: asignacion
+Error semántico en línea 81, columna 19: 'obtenerEdad' es un método de la clase 'Persona'; para invocarlo use 'p.obtenerEdad(...)' (encontrado: 'obtenerEdad').
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 16
+  Operaciones aritméticas (+ - * / %):                             2
+  Operaciones relacionales (> < >= <= == !=):                      0
+  Operaciones lógicas (&& || !):                                   0
+  Condiciones de control (if, while, do-while, for):               0
+  Retornos de método:                                              5
+Errores detectados:
+  Incompatibilidad de tipos:                  4
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 0
+Resultado semántico: CON ERRORES (23 errores semánticos)
+================================================================================
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO: ESTRUCTURAS DE CONTROL, MÉTODOS, CLASES Y ÁMBITOS
+================================================================================
+Verificaciones realizadas:
+  Condiciones de control (if, while, do-while, for):         0
+  Instrucciones break / continue / return (contexto):        5
+  Verificaciones de switch (expresión, case, default):       0
+  Declaraciones de métodos y constructores:                  8
+  Llamadas a métodos y constructores:                        5
+  Argumentos comparados contra parámetros:                   1
+  Retornos de método (tipo) y métodos con retorno completo:  5 / 5
+  Clases declaradas o referenciadas:                         12
+  Accesos a miembros de objetos (atributos y métodos):       13
+  Resoluciones de identificadores (ámbitos):                 34
+  Ámbitos de bloque abiertos (bloque, for, switch):          0
+Errores detectados por categoría:
+  Estructuras de control (break/continue/return/switch):     0
+  Métodos (llamadas, argumentos, firmas, retorno completo):  3
+  Clases y miembros (herencia, existencia, visibilidad):     14
+  Ámbitos e identificadores (no declarado / fuera de ámbito): 0
+  Declaraciones duplicadas:                                  2
+  Tipos y constantes:                                        4
+  Otros (convención de nombres, inicialización):             0
+Resultado general: CON ERRORES (23 errores semánticos en total)
+================================================================================
+Tabla de simbolos no generada: el analisis contiene errores.
+RESULTADO: INVALIDO | errores sintacticos: 0 | errores semanticos: 23 | errores lexicos: 0 | analisis completo

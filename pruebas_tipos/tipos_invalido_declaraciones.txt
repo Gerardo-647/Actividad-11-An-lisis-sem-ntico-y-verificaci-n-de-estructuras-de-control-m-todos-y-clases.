@@ -1,0 +1,18 @@
+class Declaraciones {
+    int edad = "veinte";
+    bool activo = 1;
+    string nombre = 'x';
+    float peso = true;
+    char inicial = "A";
+    int truncado = 3.5;
+    const int MAXIMO = "cien";
+    const float PI = 3.1416;
+    const double OK = 3;
+
+    void ejecutar() {
+        int a = 1.5;
+        bool b = "si";
+        string s = 10;
+        double d = 'c';
+    }
+}

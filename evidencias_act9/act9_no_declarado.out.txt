@@ -1,0 +1,40 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANALIZADOR LÉXICO Y SINTÁCTICO
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+ACTIVIDAD 9 - Analisis semantico: tabla de simbolos y tipos de datos
+Archivo: act9_no_declarado.txt
+Regla reconocida: declaracion
+Regla reconocida: lista_parametros
+Regla reconocida: expresion_aritmetica -> a + total
+Regla reconocida: declaracion
+Error semántico en línea 5, columna 21: la variable 'desconocida' no ha sido declarada (encontrado: 'desconocida').
+Regla reconocida: expresion_aritmetica -> r + desconocida
+Regla reconocida: declaracion
+Error semántico en línea 6, columna 17: la variable 'otroValor' no ha sido declarada (encontrado: 'otroValor').
+Regla reconocida: expresion_aritmetica -> otroValor + 1
+Regla reconocida: asignacion
+Regla reconocida: retorno
+Regla reconocida: bloque
+Regla reconocida: metodo_con_retorno
+Regla reconocida: metodo_con_retorno
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: declaracion
+Regla reconocida: lista_argumentos
+Regla reconocida: llamada_metodo
+Regla reconocida: llamada_metodo
+Regla reconocida: declaracion
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: clase Calculadora
+Regla reconocida: archivo
+Error semántico en línea 11, columna 17: el método 'metodoFantasma' no ha sido declarado (encontrado: 'metodoFantasma').
+Tabla de simbolos no generada: el analisis contiene errores.
+RESULTADO: INVALIDO | errores sintacticos: 0 | errores semanticos: 3 | errores lexicos: 0 | analisis completo

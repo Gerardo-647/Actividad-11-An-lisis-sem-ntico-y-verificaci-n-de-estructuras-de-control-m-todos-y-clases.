@@ -1,0 +1,17 @@
+class Condiciones {
+    int contador = 0;
+    float promedio = 1.5;
+    string nombre = "x";
+
+    void ejecutar() {
+        int i = 0;
+        if (contador) { i = 1; }
+        if (promedio + 1) { i = 2; } else { i = 3; }
+        if (nombre) { i = 4; } else if (contador + 1) { i = 5; }
+        while (i) { i--; }
+        do { i++; } while (promedio);
+        for (i = 0; i; i++) { contador = 1; }
+        switch (promedio) { case 1: i = 1; break; }
+        switch (contador) { case "uno": i = 1; break; case 2.5: i = 2; break; case 3: i = 3; break; }
+    }
+}

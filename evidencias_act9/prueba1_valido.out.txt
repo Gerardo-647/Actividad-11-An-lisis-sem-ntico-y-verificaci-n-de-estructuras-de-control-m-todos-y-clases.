@@ -1,0 +1,32 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANALIZADOR LÉXICO Y SINTÁCTICO
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+ACTIVIDAD 9 - Analisis semantico: tabla de simbolos y tipos de datos
+Archivo: prueba1_valido.txt
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: constante
+Regla reconocida: constante
+Regla reconocida: clase Persona
+Regla reconocida: archivo
+========================================================================================================================
+                                                   TABLA DE SÍMBOLOS
+========================================================================================================================
+ID                 Categoría     Tipo Dato   Valor            Ámbito            Línea   Columna   Token Originador
+------------------------------------------------------------------------------------------------------------------------
+Persona            CLASE         void        N/A              GLOBAL            1       7         ID              
+edad               ATRIBUTO      int         null             Persona           3       9         ID              
+nombre             ATRIBUTO      string      null             Persona           5       12        ID              
+apellido           ATRIBUTO      string      null             Persona           5       20        ID              
+salario            ATRIBUTO      float       5000             Persona           7       11        ID              
+PI                 CONSTANTE     double      3.1416           Persona           9       18        ID              
+MAX                CONSTANTE     int         100              Persona           11      15        ID              
+------------------------------------------------------------------------------------------------------------------------
+Total de símbolos registrados: 7
+RESULTADO: VALIDO | errores sintacticos: 0 | errores lexicos: 0 | analisis completo

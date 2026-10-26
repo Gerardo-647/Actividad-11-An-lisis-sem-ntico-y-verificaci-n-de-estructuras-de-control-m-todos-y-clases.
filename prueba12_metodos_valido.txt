@@ -1,0 +1,42 @@
+void iniciar() {
+    cout << "Inicio del programa";
+}
+
+void mostrar(int valor) {
+    cout << valor;
+}
+
+int sumar(int a, int b) {
+    return a + b;
+}
+
+int obtenerValor() {
+    return 100;
+}
+
+bool esMayor(int a, int b) {
+    return a > b;
+}
+
+void proceso() {
+    int resultado = 0;
+    int valor = 0;
+    int a = 0;
+    int b = 0;
+    int total = 0;
+    iniciar();
+    mostrar(10);
+    
+    resultado = sumar(5, 10);
+    valor = obtenerValor();
+    
+    // Llamadas dentro de expresiones y condiciones
+    total = sumar(a, b) * 2;
+    
+    if (esMayor(resultado, 50)) {
+        cout << "El resultado es mayor";
+    }
+    
+    cout << resultado;
+    cout << valor;
+}

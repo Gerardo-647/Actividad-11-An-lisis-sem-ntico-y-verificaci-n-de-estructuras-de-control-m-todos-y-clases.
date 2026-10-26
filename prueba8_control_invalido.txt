@@ -1,0 +1,11 @@
+void proceso() {
+    if edad >= 18 { cout << "Falta parentesis de apertura"; }
+    while (contador < 10 { contador = contador + 1; }
+    for (i = 0; i < 10) { cout << i; }
+    if (a > ) { cout << "Condicion incorrecta"; }
+    switch (opcion) {
+        case: cout << "Caso sin valor"; break;
+        case 2: cout << "Caso posterior valido"; break;
+    }
+    cout << "CONTINUACION_INVALIDOS";
+}

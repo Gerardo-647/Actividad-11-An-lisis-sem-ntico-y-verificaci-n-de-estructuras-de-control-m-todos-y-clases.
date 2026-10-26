@@ -1,0 +1,36 @@
+class Operadores {
+    int n = 4;
+    float f = 2.5;
+    bool b = true;
+    string s = "abc";
+
+    void ejecutar() {
+        int r = 0;
+        bool t = false;
+        string u = "";
+        // aritméticos inválidos
+        r = n + b;
+        r = b * b;
+        u = s - n;
+        r = f % 2;
+        r = s * 2;
+        u = s + n;
+        // relacionales inválidos
+        t = s > s;
+        t = b < n;
+        t = s == n;
+        t = b == n;
+        // lógicos inválidos
+        t = n && b;
+        t = b || f;
+        t = !n;
+        r = -b;
+        r = -s;
+        // asignaciones compuestas inválidas
+        b += 1;
+        n -= s;
+        r = n / f;
+        n++;
+        b++;
+    }
+}

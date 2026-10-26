@@ -1,0 +1,27 @@
+| Prueba | Tipo | Resultado esperado | Resultado obtenido | Estado |
+|---|---|---|---|---|
+| Condición booleana en if | Válida | Aceptar la condición | `sem_valido_calculadora.txt` → Sin errores de este tipo (aceptado) | Correcta |
+| Condición numérica en if | Inválida | Reportar error de tipo | `sem_invalido_calculadora_errores.txt` → línea 18, columna 13: La expresión dentro de la condición 'if' debe ser de tipo 'bool', se encontró 'int' (encontrado: 'resultado'). | Correcta |
+| Condición booleana en un ciclo | Válida | Aceptar la condición | `sem_valido_control.txt` → Sin errores de este tipo (aceptado) | Correcta |
+| Uso de break dentro de un ciclo | Válida | Aceptar la instrucción | `sem_valido_control.txt` → Sin errores de este tipo (aceptado) | Correcta |
+| Uso de continue fuera de un ciclo | Inválida | Reportar error de contexto | `sem_invalido_control.txt` → línea 21, columna 9: La instrucción 'continue' solo puede utilizarse dentro de un ciclo (while, do-while o for) (encontrado: 'continue'). | Correcta |
+| Llamada con número correcto de argumentos | Válida | Validar la firma del método | `sem_valido_metodos.txt` → Sin errores de este tipo (aceptado) | Correcta |
+| Llamada con argumentos insuficientes | Inválida | Reportar cantidad incorrecta | `sem_invalido_metodos.txt` → línea 32, columna 17: El método 'sumar' requiere 2 argumentos, pero se proporcionó 1 (encontrado: 'sumar'). | Correcta |
+| Argumento de tipo incompatible | Inválida | Reportar incompatibilidad de tipos | `sem_invalido_metodos.txt` → línea 34, columna 23: El argumento 1 del método 'sumar' es de tipo 'string'; se esperaba un tipo compatible con 'int' (encontrado: '"Hola"'). | Correcta |
+| Método no declarado | Inválida | Reportar método inexistente | `sem_invalido_metodos.txt` → línea 36, columna 17: El método 'calcularTotal' no está declarado o no puede resolverse en este contexto (encontrado: 'calcularTotal'). | Correcta |
+| Retorno compatible con el método | Válida | Aceptar el valor retornado | `sem_valido_metodos.txt` → Sin errores de este tipo (aceptado) | Correcta |
+| Retorno incompatible con el método | Inválida | Reportar error de retorno | `sem_invalido_metodos.txt` → línea 6, columna 5: Incompatibilidad de tipos: el método 'obtenerEdad' retorna 'int' pero se devuelve un valor de tipo 'string' (encontrado: '"veinticinco"'). | Correcta |
+| Atributo existente y accesible | Válida | Aceptar el acceso | `sem_valido_clases.txt` → Sin errores de este tipo (aceptado) | Correcta |
+| Atributo inexistente | Inválida | Reportar miembro no declarado | `sem_invalido_clases.txt` → línea 66, columna 19: El atributo 'limite' no está declarado en la clase 'Calculadora' (encontrado: 'limite'). | Correcta |
+| Uso de variable fuera de ámbito | Inválida | Reportar identificador no visible | `sem_invalido_ambitos.txt` → línea 15, columna 21: El identificador 'interno' no está disponible en el ámbito actual (está declarado en el ámbito 'Ambitos.uno.bloque1') (encontrado: 'interno'). | Correcta |
+| Declaración duplicada | Inválida, según las reglas del lenguaje | Reportar conflicto de nombres | `sem_invalido_ambitos.txt` → línea 8, columna 13: el identificador 'local' ya fue declarado previamente en este ámbito (encontrado: 'local'). | Correcta |
+| Método sin retorno obligatorio | Inválida, cuando corresponda | Reportar camino sin retorno válido | `sem_invalido_retorno_caminos.txt` → línea 5, columna 1: El método 'a' debe devolver un valor compatible con el tipo 'int' en todos los caminos de ejecución (encontrado: '}'). | Correcta |
+| Acceso a miembro privado | Inválida | Reportar visibilidad | `sem_invalido_clases.txt` → línea 54, columna 17: No se permite acceder al miembro 'privado' (private en la clase 'Base') desde el contexto actual debido a sus restricciones de visibilidad (encontrado: 'privado'). | Correcta |
+| Herencia con clase base inexistente | Inválida | Reportar clase base no declarada | `sem_invalido_clases.txt` → línea 32, columna 21: La clase base 'Padre' no está declarada (encontrado: 'Padre'). | Correcta |
+| Clase no declarada como tipo | Inválida | Reportar clase inexistente | `sem_invalido_clases.txt` → línea 62, columna 5: La clase 'Fantasma' no está declarada (encontrado: 'Fantasma'). | Correcta |
+| Clase duplicada | Inválida | Reportar conflicto de nombres | `sem_invalido_clases.txt` → línea 13, columna 7: el identificador 'Calculadora' ya fue declarado previamente en este ámbito (encontrado: 'Calculadora'). | Correcta |
+| Sobrecarga con la misma firma | Inválida | Reportar firma duplicada | `sem_invalido_clases.txt` → línea 8, columna 9: el método 'duplicar()' ya fue declarado previamente en este ámbito con la misma firma (encontrado: 'duplicar'). | Correcta |
+| Return fuera de un método | Inválida | Reportar contexto inválido | `sem_invalido_return_fuera.txt` → línea 1, columna 1: La instrucción 'return' no puede utilizarse fuera de un método o función (encontrado: 'return'). | Correcta |
+| Etiquetas case duplicadas | Inválida | Reportar etiqueta duplicada | `sem_invalido_control.txt` → línea 35, columna 18: La etiqueta 'case 1' está duplicada dentro del 'switch' (encontrado: '1'). | Correcta |
+| Métodos sobrecargados válidos | Válida | Elegir la sobrecarga correcta | `sem_valido_metodos.txt` → Sin errores de este tipo (aceptado) | Correcta |
+| Herencia y constructores válidos | Válida | Aceptar la jerarquía | `sem_valido_clases.txt` → Sin errores de este tipo (aceptado) | Correcta |

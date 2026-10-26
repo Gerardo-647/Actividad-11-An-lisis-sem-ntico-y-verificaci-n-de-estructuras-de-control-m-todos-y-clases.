@@ -1,0 +1,6 @@
+class Programa {
+    final int LIMITE;
+    void metodoPrueba() {
+        int contador;
+    }
+}

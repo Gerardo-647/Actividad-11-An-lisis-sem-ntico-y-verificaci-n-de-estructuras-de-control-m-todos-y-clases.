@@ -1,0 +1,1037 @@
+/*
+ * INTEGRANTES:
+ * 1. Cancelada de la O Gerardo Alexander
+ * 2. Castellanos Hernández Alan
+ * 3. Lara Jiménez Pablo César
+ * 4. Medina Robledo Brandon Ernie
+ */
+
+import java_cup.runtime.*;
+
+parser code {:
+    public int numErrores = 0;            // errores sintácticos
+    public int numErroresSemanticos = 0;  // errores semánticos
+    private Symbol anterior, escaneado;
+    @Override public Symbol scan() throws Exception {
+        anterior = escaneado;
+        escaneado = super.scan();
+        return escaneado;
+    }
+    public void error_en(String causa, int linea, int columna, Object token) {
+        numErrores++;
+        System.out.println("Error sintáctico en línea " + linea + ", columna " + columna
+            + ": " + causa + " (encontrado: '" + token + "').");
+    }
+    @Override public void syntax_error(Symbol s) {
+        String causa = "token inesperado; revise operandos, delimitadores y la estructura";
+        if (s.sym == sym.EOF) causa = "fin inesperado; puede faltar '}' para cerrar un bloque o una sentencia";
+        else if (s.sym == sym.ELSE) causa = "'else' sin 'if' asociado o falta '}' antes de 'else'";
+        else if (s.sym == sym.PAR_C) causa = "condición/expresión incompleta o falta una sección del 'for'";
+        else if (s.sym == sym.LLAVE_A) causa = "se esperaba ')' antes de abrir el bloque";
+        else if (s.sym == sym.DOS_PUNTOS) causa = "se esperaba un valor después de 'case'";
+        if (anterior != null && (anterior.sym == sym.IF || anterior.sym == sym.WHILE
+                || anterior.sym == sym.FOR || anterior.sym == sym.SWITCH) && s.sym != sym.PAR_A)
+            causa = "se esperaba '(' después de '" + anterior.value + "'";
+        error_en(causa, s.left, s.right, s.value);
+    }
+    @Override public void unrecovered_syntax_error(Symbol s) throws Exception {
+        System.out.println("No fue posible recuperar este error; análisis detenido.");
+        throw new Exception("Error sintáctico no recuperable");
+    }
+    @Override protected int error_sync_size() { return 2; }
+    public void error_actual(String causa) {
+        error_en(causa, cur_token.left, cur_token.right, cur_token.value);
+    }
+    public void recuperada(String donde) {
+        System.out.println("Recuperación: " + donde + "; se continúa el análisis.");
+    }
+    public String regla(String nombre, String contenido) {
+        if (!contenido.contains("[ERROR]")) System.out.println("Regla reconocida: " + nombre);
+        return nombre + "\n" + indentar(contenido);
+    }
+    /** Estructuras de control: devuelve un Nodo con el árbol y la información de flujo (retorno / break). */
+    public Nodo control(String nombre, String contenido, boolean retorna, boolean hayBreak) {
+        if (!contenido.contains("[ERROR]") &&
+            (contenido.contains("seleccion_") || contenido.contains("ciclo_")))
+            System.out.println("Regla reconocida: estructura_anidada");
+        return new Nodo(regla(nombre, contenido), retorna, hayBreak);
+    }
+    private String indentar(String s) {
+        return s.isEmpty() ? "" : "  " + s.replace("\n", "\n  ").stripTrailing() + "\n";
+    }
+
+    /* ==========================================
+       VERIFICACIÓN SEMÁNTICA DE TIPOS
+       Lenguaje: C++ (estáticamente tipado). Cada no terminal de expresión
+       devuelve un objeto Expr (texto + tipo + posición); las reglas de
+       compatibilidad viven en ManejadorTipos.
+       ========================================== */
+    private static final String ERR = ManejadorTipos.ERROR;
+    public int numErroresTipos = 0;       // incompatibilidades de tipo (asignación, operadores, condiciones, retorno)
+    public int numErroresConstantes = 0;  // intentos de modificar una constante
+    public int verifAsignaciones = 0, verifAritmeticas = 0, verifRelacionales = 0,
+               verifLogicas = 0, verifCondiciones = 0, verifRetornos = 0;
+    private String metodoActual = null, tipoRetornoActual = null;
+    private java.util.ArrayDeque<String> tiposSwitch = new java.util.ArrayDeque<String>();
+
+    public void error_tipos(String causa, int linea, int columna, Object token) {
+        numErroresTipos++;
+        error_semantico(causa, linea, columna, token);
+    }
+
+    /** Operadores binarios aritméticos, relacionales y lógicos. 'linea/columna' son los del operador. */
+    public Expr binario(Expr a, String op, Expr b, String regla, int linea, int columna) {
+        String texto = a.texto + " " + op + " " + b.texto;
+        if (regla.equals("expresion_aritmetica")) verifAritmeticas++;
+        else if (regla.equals("expresion_relacional")) verifRelacionales++;
+        else verifLogicas++;
+        String tipo = ERR;
+        if (!a.esError() && !b.esError()) {
+            tipo = ManejadorTipos.tipoBinario(op, a.tipo, b.tipo);
+            if (tipo == null) {
+                error_tipos(ManejadorTipos.causaBinario(op, a.tipo, b.tipo), linea, columna, op);
+                tipo = ERR;
+            }
+        }
+        if (!tipo.equals(ERR) && !texto.contains("[ERROR]"))
+            System.out.println("Regla reconocida: " + regla + " -> " + texto + " [tipo: " + tipo + "]");
+        return new Expr(texto, tipo, a.linea, a.columna).comoConstante(a.constante && b.constante);
+    }
+
+    /** Operadores unarios: !, - y +. */
+    public Expr unario(String op, Expr e, int linea, int columna) {
+        String texto = op + e.texto;
+        if (op.equals("!")) verifLogicas++; else verifAritmeticas++;
+        String tipo = ERR;
+        if (!e.esError()) {
+            tipo = ManejadorTipos.tipoUnario(op, e.tipo);
+            if (tipo == null) {
+                error_tipos(ManejadorTipos.causaUnario(op, e.tipo), linea, columna, op);
+                tipo = ERR;
+            }
+        }
+        if (op.equals("!") && !tipo.equals(ERR))
+            System.out.println("Regla reconocida: expresion_logica -> " + texto + " [tipo: " + tipo + "]");
+        return new Expr(texto, tipo, linea, columna).comoConstante(e.constante);
+    }
+
+    /** Identificador como operando: se consulta la tabla de símbolos y se extrae su tipo de dato. */
+    public Expr exprIdentificador(String id, int linea, int columna) {
+        Simbolo s = usarVariable(id, linea, columna);
+        Expr e = new Expr(id, s == null ? ERR : s.getTipoDato(), linea, columna);
+        e.constante = s != null && s.getTipoSimbolo().equals("CONSTANTE");
+        return e;
+    }
+
+    private String articulo(String categoria) {
+        if (categoria.equals("ATRIBUTO")) return "al atributo";
+        if (categoria.equals("CONSTANTE")) return "a la constante";
+        return "a la variable";
+    }
+
+    /** Valida que un valor de tipo 'tipoValor' pueda guardarse en el identificador (declaración o asignación). */
+    public void verificarAsignacion(String id, String categoria, String tipoDestino, String tipoValor, int linea, int columna) {
+        verifAsignaciones++;
+        if (tipoValor.equals(ERR) || tipoDestino.equals(ERR)) return;
+        if (!ManejadorClases.asignable(global(), tipoDestino, tipoValor)) {
+            error_tipos("Incompatibilidad de tipos: No se puede asignar un valor de tipo '" + tipoValor + "' "
+                + articulo(categoria) + " '" + id + "' de tipo '" + tipoDestino + "'", linea, columna, id);
+        }
+    }
+
+    /** Inmutabilidad: una constante se puede leer, pero no reasignar, incrementar ni leer con cin/leer. */
+    public void verificarModificable(Simbolo s, String id, int linea, int columna) {
+        if (s != null && s.getTipoSimbolo().equals("CONSTANTE")) {
+            numErroresConstantes++;
+            error_semantico("No se puede reasignar un valor a la constante '" + id + "'", linea, columna, id);
+        }
+    }
+
+    /** id = expr, id += expr, id -= expr, id *= expr, id /= expr. */
+    public String asignar(String id, String op, Expr e, int linea, int columna) {
+        asignarSimbolo(usarVariable(id, linea, columna), id, op, e, linea, columna);
+        return id + " " + op + " " + e.texto;
+    }
+
+    /** obj.atributo = expr (y asignaciones compuestas): resuelve el atributo en la clase del objeto. */
+    public String asignarMiembro(String obj, String attr, String op, Expr e, int lo, int co, int la, int ca) {
+        asignarSimbolo(resolverAtributo(obj, attr, lo, co, la, ca), obj + "." + attr, op, e, lo, co);
+        return obj + "." + attr + " " + op + " " + e.texto;
+    }
+
+    private void asignarSimbolo(Simbolo s, String nombre, String op, Expr e, int linea, int columna) {
+        if (s == null) return;
+        verificarModificable(s, nombre, linea, columna);
+        String dest = s.getTipoDato();
+        if (e.esError() || dest.equals(ERR)) return;
+        String tipoValor = e.tipo;
+        if (!op.equals("=")) {   // asignación compuesta: se valida (id op expr) y luego su asignación
+            if (!ManejadorTipos.esPrimitivo(dest)) {
+                error_tipos("El operador '" + op + "' no es aplicable a un objeto de tipo '" + dest + "'", linea, columna, op);
+                return;
+            }
+            String opb = op.substring(0, op.length() - 1);
+            verifAritmeticas++;
+            tipoValor = ManejadorTipos.tipoBinario(opb, dest, e.tipo);
+            if (tipoValor == null) {
+                error_tipos(ManejadorTipos.causaBinario(opb, dest, e.tipo), linea, columna, op);
+                return;
+            }
+        }
+        verificarAsignacion(nombre, s.getTipoSimbolo(), dest, tipoValor, linea, columna);
+    }
+
+    /** ++ y -- (prefijo o sufijo): variable numérica y no constante. */
+    public String incrementar(String id, String op, boolean prefijo, int linea, int columna) {
+        Simbolo s = usarVariable(id, linea, columna);
+        if (s != null) {
+            verificarModificable(s, id, linea, columna);
+            String t = s.getTipoDato();
+            if (!t.equals(ERR) && !ManejadorTipos.esNumerico(t))
+                error_tipos("El operador '" + op + "' solo es aplicable a operandos numéricos, se encontró '" + t + "'.", linea, columna, id);
+        }
+        return prefijo ? op + id : id + op;
+    }
+
+    /** cin >> id / leer(id): el identificador debe existir y no ser constante. */
+    public void usarLectura(String id, int linea, int columna) {
+        verificarModificable(usarVariable(id, linea, columna), id, linea, columna);
+    }
+
+    /** Condición de if / while / do-while / for: debe ser de tipo bool. */
+    public void verificarCondicion(Expr c, String estructura) {
+        verifCondiciones++;
+        if (c.esError()) return;
+        if (!c.tipo.equals("bool")) {
+            error_tipos("La expresión dentro de la condición '" + estructura + "' debe ser de tipo 'bool', se encontró '" + c.tipo + "'",
+                c.linea, c.columna, c.texto);
+        } else if (!c.texto.contains("[ERROR]")) {
+            System.out.println("Regla reconocida: condicion");
+        }
+    }
+
+    /** return expr; / return; : valida el contexto (dentro de un método) y delega en la verificación de tipos. */
+    public Nodo sentenciaReturn(Expr e, int linea, int columna) {
+        verifBreakContinue++;
+        if (tipoRetornoActual == null) {
+            error_ctrl("La instrucción 'return' no puede utilizarse fuera de un método o función", linea, columna, "return");
+        } else if (e != null) {
+            verificarRetorno(e, linea, columna);
+        } else {
+            verificarRetornoVacio(linea, columna);
+        }
+        return new Nodo(regla("retorno", e == null ? "" : e.texto), true, false);
+    }
+
+    /** return expr; contra el tipo de retorno del método actual. */
+    public void verificarRetorno(Expr e, int linea, int columna) {
+        if (tipoRetornoActual == null) return;
+        verifRetornos++;
+        if (tipoRetornoActual.equals(ERR)) return;      // cabecera con error: no se verifica el cuerpo contra ella
+        if (tipoRetornoActual.equals("void")) {
+            error_tipos("El método '" + metodoActual + "' es 'void' y no puede devolver un valor", linea, columna, "return");
+        } else if (!e.esError() && !ManejadorClases.asignable(global(), tipoRetornoActual, e.tipo)) {
+            error_tipos("Incompatibilidad de tipos: el método '" + metodoActual + "' retorna '" + tipoRetornoActual
+                + "' pero se devuelve un valor de tipo '" + e.tipo + "'", linea, columna, e.texto);
+        }
+    }
+    public void verificarRetornoVacio(int linea, int columna) {
+        if (tipoRetornoActual == null) return;
+        verifRetornos++;
+        if (!tipoRetornoActual.equals("void") && !tipoRetornoActual.equals(ERR))
+            error_tipos("El método '" + metodoActual + "' debe devolver un valor de tipo '" + tipoRetornoActual + "'", linea, columna, "return");
+    }
+    public void finMetodo() { metodoActual = null; tipoRetornoActual = null; esConstructor = false; metodoSim = null; }
+
+    /** Una llamada usada como valor no puede ser de un método void. */
+    public Expr valorDeLlamada(Expr lm) {
+        if (lm.tipo.equals("void")) {
+            String id = lm.texto.substring(0, lm.texto.indexOf('('));
+            error_tipos("el método '" + id + "' es 'void' y no devuelve un valor que pueda usarse en una expresión", lm.linea, lm.columna, id);
+            return new Expr(lm.texto, ERR, lm.linea, lm.columna);
+        }
+        return lm;
+    }
+
+    /* ==========================================
+       ESTRUCTURAS DE CONTROL: break, continue, switch, ciclos y retorno en todos los caminos
+       ========================================== */
+    public int numErroresControl = 0, numErroresMetodos = 0, numErroresClases = 0,
+               numErroresAmbitos = 0, numErroresDuplicados = 0;
+    public int verifBreakContinue = 0, verifSwitch = 0, verifMetodosDecl = 0, verifLlamadas = 0, verifArgumentos = 0,
+               verifRetornosCompletos = 0, verifClases = 0, verifMiembros = 0, verifAmbitos = 0, verifIdentificadores = 0;
+    private int ciclos = 0, switches = 0;                // contexto de ciclos y switch abiertos
+    private java.util.ArrayDeque<java.util.HashSet<String>> etiquetasSwitch = new java.util.ArrayDeque<java.util.HashSet<String>>();
+    private java.util.ArrayDeque<boolean[]> defaultSwitch = new java.util.ArrayDeque<boolean[]>();
+
+    public void error_ctrl(String causa, int linea, int columna, Object token) { numErroresControl++; error_semantico(causa, linea, columna, token); }
+    public void error_met(String causa, int linea, int columna, Object token)  { numErroresMetodos++; error_semantico(causa, linea, columna, token); }
+    public void error_cls(String causa, int linea, int columna, Object token)  { numErroresClases++; error_semantico(causa, linea, columna, token); }
+    public void error_amb(String causa, int linea, int columna, Object token)  { numErroresAmbitos++; error_semantico(causa, linea, columna, token); }
+
+    public void entrarCiclo() { ciclos++; }
+    public void salirCiclo() { if (ciclos > 0) ciclos--; }
+
+    /** break: solo dentro de un ciclo (while, do-while, for) o de un switch. */
+    public Nodo sentenciaBreak(int linea, int columna) {
+        verifBreakContinue++;
+        boolean valido = ciclos > 0 || switches > 0;
+        if (!valido) error_ctrl("La instrucción 'break' no se encuentra dentro de una estructura que permita su utilización (ciclo o switch)", linea, columna, "break");
+        return new Nodo(regla("break", valido ? "" : "[ERROR]"), false, true);
+    }
+
+    /** continue: solo dentro de un ciclo (no basta con un switch). */
+    public Nodo sentenciaContinue(int linea, int columna) {
+        verifBreakContinue++;
+        boolean valido = ciclos > 0;
+        if (!valido) error_ctrl("La instrucción 'continue' solo puede utilizarse dentro de un ciclo (while, do-while o for)", linea, columna, "continue");
+        return new Nodo(regla("continue", valido ? "" : "[ERROR]"), false, false);
+    }
+
+    /** true si la condición del ciclo es el literal 'true' (ciclo infinito si no hay break). */
+    public boolean esVerdadero(String condicion) { return condicion.replaceAll("[()\\s]", "").equals("true"); }
+    /** for sin condición o con condición 'true' (cabecera_for devuelve "inicio: ..; condición: ..; actualización: .."). */
+    public boolean forInfinito(String cabecera) { return cabecera.contains("condición: ;") || cabecera.contains("condición: true;"); }
+
+    /** Ciclo: un ciclo infinito sin break nunca termina, por lo que no deja caminos sin return. */
+    public Nodo nodoCiclo(String nombre, String contenido, Nodo cuerpo, boolean infinito, boolean hacerMientras) {
+        boolean retorna = hacerMientras ? (cuerpo.retorna && !cuerpo.hayBreak) : (infinito && !cuerpo.hayBreak);
+        return control(nombre, contenido, retorna, false);   // un break dentro del ciclo solo sale de ese ciclo
+    }
+
+    /** switch: la expresión debe ser entera (int/char) y cada case compatible con ella. */
+    public void abrirSwitch(Expr e) {
+        verifSwitch++;
+        String t = e.tipo;
+        if (!e.esError() && !ManejadorTipos.esEntero(t)) {
+            error_tipos("La expresión del 'switch' debe ser de tipo entero (int o char), se encontró '" + t + "'",
+                e.linea, e.columna, e.texto);
+            t = ERR;
+        }
+        tiposSwitch.push(t);
+        etiquetasSwitch.push(new java.util.HashSet<String>());
+        defaultSwitch.push(new boolean[]{false});
+        switches++;
+    }
+    /** El cuerpo del switch es un ámbito propio: las declaraciones de un case no se ven fuera del switch. */
+    public void abrirAmbitoSwitch() { tabla.entrarBloque("switch"); verifAmbitos++; }
+    public void cerrarSwitch() {
+        if (!tiposSwitch.isEmpty()) tiposSwitch.pop();
+        if (!etiquetasSwitch.isEmpty()) etiquetasSwitch.pop();
+        if (!defaultSwitch.isEmpty()) defaultSwitch.pop();
+        if (switches > 0) switches--;
+        tabla.salirAmbito();
+    }
+    public void verificarCase(Expr e) {
+        if (tiposSwitch.isEmpty() || e.esError() || tiposSwitch.peek().equals(ERR)) return;
+        verifSwitch++;
+        if (!ManejadorTipos.esEntero(e.tipo)) {
+            error_tipos("El valor del 'case' debe ser de tipo entero (int o char) para ser compatible con el 'switch' de tipo '"
+                + tiposSwitch.peek() + "', se encontró '" + e.tipo + "'", e.linea, e.columna, e.texto);
+        } else if (!e.constante) {
+            error_ctrl("La etiqueta del 'case' debe ser un literal o una constante, se encontró la expresión '" + e.texto + "'",
+                e.linea, e.columna, e.texto);
+        } else if (!etiquetasSwitch.peek().add(e.texto.replace(" ", ""))) {
+            error_ctrl("La etiqueta 'case " + e.texto + "' está duplicada dentro del 'switch'", e.linea, e.columna, e.texto);
+        }
+    }
+    public void verificarDefault(int linea, int columna) {
+        if (defaultSwitch.isEmpty()) return;
+        verifSwitch++;
+        if (defaultSwitch.peek()[0]) error_ctrl("El 'switch' ya tiene una etiqueta 'default'; solo puede haber una", linea, columna, "default");
+        defaultSwitch.peek()[0] = true;
+    }
+
+    /* ==========================================
+       ÁMBITOS: bloques anidados y recuperación
+       ========================================== */
+    private boolean bloqueDeMetodo = false;
+
+    /** Abre un bloque '{': crea un ámbito propio, salvo el cuerpo de un método que comparte el ámbito de sus parámetros. */
+    public MarcaAmbito abrirBloque() {
+        MarcaAmbito m = new MarcaAmbito(tabla.profundidad(), ciclos, switches);
+        if (bloqueDeMetodo) {
+            bloqueDeMetodo = false;
+        } else {
+            tabla.entrarBloque("bloque");
+            verifAmbitos++;
+        }
+        return m;
+    }
+    /** Cierra un bloque restaurando el contexto exacto que había al abrirlo (aunque un error sintáctico haya saltado producciones). */
+    public void cerrarBloque(MarcaAmbito m) {
+        tabla.restaurar(m.ambitos);
+        ciclos = m.ciclos;
+        switches = m.switches;
+    }
+    /** El for tiene su propio ámbito: la variable de inicialización no es visible fuera del ciclo. */
+    public void abrirFor() { tabla.entrarBloque("for"); verifAmbitos++; }
+    public void cerrarFor() { tabla.salirAmbito(); }
+
+    /* ==========================================
+       ACTIVIDAD 9: TABLA DE SIMBOLOS
+       ========================================== */
+    public TablaSimbolos tabla = new TablaSimbolos();
+    private String tipoActual;
+
+    /** Tabla de la primera pasada (declaraciones de todo el archivo); permite usar métodos y atributos declarados más abajo. */
+    public TablaSimbolos protos = null;
+    private TablaSimbolos global() { return protos != null ? protos : tabla; }
+
+    private boolean esPascalCase(String s) { return s.matches("[A-Z][a-zA-Z0-9]*"); }
+    private boolean esCamelCase(String s)  { return s.matches("[a-z][a-zA-Z0-9]*"); }
+    private boolean esSnakeCase(String s)  { return s.matches("[A-Z][A-Z0-9_]*"); }
+
+    public void error_semantico(String causa, int linea, int columna, Object token) {
+        numErroresSemanticos++;
+        if (causa.endsWith(".")) causa = causa.substring(0, causa.length() - 1);
+        System.out.println("Error semántico en línea " + linea + ", columna " + columna
+            + ": " + causa + " (encontrado: '" + token + "').");
+    }
+
+    /** true si ya existe el identificador en el ambito actual; en ese caso reporta el error. */
+    private boolean yaExiste(String id, int linea, int columna) {
+        String ambito = tabla.ambitoActual();
+        if (tabla.existeEnAmbito(id, ambito)) {
+            numErroresDuplicados++;
+            error_semantico("el identificador '" + id + "' ya fue declarado previamente en este ámbito", linea, columna, id);
+            return true;
+        }
+        return false;
+    }
+
+    /** Uso de una variable/atributo/constante: debe estar declarada en el ámbito actual o en uno contenedor. */
+    public Simbolo usarVariable(String id, int linea, int columna) {
+        verifIdentificadores++;
+        Simbolo s = tabla.buscar(id);
+        String ctx = tabla.claseActual();
+        if (s == null && protos != null && ctx != null) {
+            // contexto completo de clase: el cuerpo de un método puede usar atributos declarados más abajo en la clase
+            Simbolo m = ManejadorClases.buscarAtributo(protos, ctx, id);
+            if (m != null) s = m;
+        }
+        if (s == null) {
+            java.util.List<Simbolo> otras = protos != null ? protos.declaraciones(id) : new java.util.ArrayList<Simbolo>();
+            if (otras.isEmpty()) {
+                error_amb("la variable '" + id + "' no ha sido declarada", linea, columna, id);
+            } else {
+                java.util.List<String> activos = tabla.ambitosActivos();
+                Simbolo d = otras.get(0);
+                for (Simbolo o : otras) if (activos.contains(o.getAmbito())) { d = o; break; }
+                if (activos.contains(d.getAmbito()))
+                    error_amb("el identificador '" + id + "' se utiliza antes de su declaración (se declara en la línea " + d.getLinea() + ")", linea, columna, id);
+                else
+                    error_amb("El identificador '" + id + "' no está disponible en el ámbito actual (está declarado en el ámbito '" + d.getAmbito() + "')", linea, columna, id);
+            }
+            return null;
+        }
+        String cat = s.getTipoSimbolo();
+        if (cat.equals("CLASE") || cat.equals("METODO") || cat.equals("CONSTRUCTOR")) {
+            error_amb("el identificador '" + id + "' corresponde a " + (cat.equals("CLASE") ? "una clase" : "un método")
+                + " y no a una variable o constante", linea, columna, id);
+            return null;
+        }
+        if (!s.getVisibilidad().equals("-") && !verificarAcceso(s, id, linea, columna)) return null;   // miembro heredado
+        return s;
+    }
+
+    /** Verifica la visibilidad de un miembro (public/private/protected) desde la clase actual. */
+    private boolean verificarAcceso(Simbolo m, String nombre, int linea, int columna) {
+        if (ManejadorClases.puedeAcceder(global(), m, tabla.claseActual())) return true;
+        error_cls("No se permite acceder al miembro '" + nombre + "' (" + m.getVisibilidad() + " en la clase '" + m.getAmbito()
+            + "') desde el contexto actual debido a sus restricciones de visibilidad", linea, columna, nombre);
+        return false;
+    }
+
+    /* ---------- clases ---------- */
+    private String seccion = "private";      // sección de acceso vigente en la clase (public:/private:/protected:)
+    private String modTemp = null;           // modificador escrito delante de un solo miembro (public int x;)
+    private int clasesDuplicadas = 0;
+
+    public void fijarSeccion(String v) { seccion = v; }
+    public void fijarModificador(String v) { modTemp = v; }
+    public void finModificador() { modTemp = null; }
+    private String visibilidadEfectiva() { return modTemp != null ? modTemp : seccion; }
+
+    /** El tipo de una declaración que no es primitivo debe ser una clase declarada antes. Devuelve el tipo o ERROR. */
+    public String tipoClase(String id, int linea, int columna) {
+        verifClases++;
+        if (tabla.buscarClase(id) != null) return id;
+        if (protos != null && protos.buscarClase(id) != null)
+            error_cls("La clase '" + id + "' se declara más adelante; en C++ debe declararse antes de utilizarse", linea, columna, id);
+        else
+            error_cls("La clase '" + id + "' no está declarada", linea, columna, id);
+        return ERR;
+    }
+
+    /** Registra la clase y devuelve el nombre del ámbito que abre su cuerpo. */
+    public String registrarClase(String id, String padre, int linea, int columna, int lp, int cp) {
+        verifClases++;
+        seccion = "private";
+        modTemp = null;
+        if (!esPascalCase(id)) {
+            error_semantico("el identificador de clase '" + id + "' debe utilizar la convención PascalCase", linea, columna, id);
+        }
+        String baseOk = null;
+        if (padre != null) {
+            if (padre.equals(id)) error_cls("La clase '" + id + "' no puede heredar de sí misma", lp, cp, padre);
+            else if (tabla.buscarClase(padre) == null) error_cls("La clase base '" + padre + "' no está declarada", lp, cp, padre);
+            else baseOk = padre;
+        }
+        if (yaExiste(id, linea, columna)) return id + "#" + (++clasesDuplicadas);   // su cuerpo no se mezcla con el de la clase original
+        Simbolo c = new Simbolo(id, "CLASE", "void", "N/A", tabla.ambitoActual(), linea, columna, "ID");
+        c.setPadre(baseOk);
+        tabla.insertar(c);
+        return id;
+    }
+
+    /* ---------- métodos y constructores ---------- */
+    private boolean esConstructor = false;
+    private int metodoLinea = 0, metodoColumna = 0, nParametros = 0;
+    private Simbolo metodoSim = null;        // símbolo del método en curso (recibe sus parámetros)
+
+    private void iniciarCuerpo(String id, String tipoRetorno, boolean ctor, int linea, int columna) {
+        metodoActual = id;
+        tipoRetornoActual = tipoRetorno;
+        esConstructor = ctor;
+        metodoLinea = linea;
+        metodoColumna = columna;
+        nParametros = 0;
+        ciclos = 0;
+        switches = 0;
+        tiposSwitch.clear();
+        etiquetasSwitch.clear();
+        defaultSwitch.clear();
+    }
+
+    public void registrarMetodo(String id, String tipoRetorno, int linea, int columna) {
+        verifMetodosDecl++;
+        iniciarCuerpo(id, tipoRetorno, false, linea, columna);
+        if (!esCamelCase(id)) {
+            error_semantico("el identificador de método '" + id + "' debe utilizar la convención camelCase", linea, columna, id);
+        }
+        String duena = tabla.ambitoActual();
+        metodoSim = new Simbolo(id, "METODO", tipoRetorno, "N/A", duena, linea, columna, "ID");
+        metodoSim.setVisibilidad(tabla.enClase() ? visibilidadEfectiva() : "-");
+        if (tabla.existeNoMetodoEnAmbito(id, duena)) {      // choque con un atributo/variable/clase del mismo nombre
+            numErroresDuplicados++;
+            error_semantico("el identificador '" + id + "' ya fue declarado previamente en este ámbito", linea, columna, id);
+            metodoSim = null;
+        } else {
+            tabla.insertar(metodoSim);
+        }
+        tabla.entrarAmbitoUnico(duena.equals("GLOBAL") ? id : duena + "." + id, "METODO");
+    }
+
+    public void registrarConstructor(String id, int linea, int columna) {
+        verifMetodosDecl++;
+        iniciarCuerpo(id, "void", true, linea, columna);
+        String clase = tabla.claseActual();
+        String nombreClase = clase != null && clase.contains("#") ? clase.substring(0, clase.indexOf('#')) : clase;
+        metodoSim = null;
+        if (clase != null && !id.equals(nombreClase)) {
+            error_cls("El método '" + id + "' no tiene tipo de retorno: solo los constructores, que se llaman como la clase '"
+                + nombreClase + "', pueden omitirlo", linea, columna, id);
+        } else if (clase != null) {
+            metodoSim = new Simbolo(id, "CONSTRUCTOR", "N/A", "N/A", clase, linea, columna, "ID");
+            metodoSim.setVisibilidad(visibilidadEfectiva());
+            tabla.insertar(metodoSim);
+        }
+        tabla.entrarAmbitoUnico((clase == null ? "GLOBAL" : clase) + "." + id, "METODO");
+    }
+
+    public void registrarParametro(String id, String tipoDato, int linea, int columna) {
+        nParametros++;
+        if (metodoSim != null) metodoSim.agregarParametro(tipoDato, id);
+        if (!esCamelCase(id)) {
+            error_semantico("el identificador de variable '" + id + "' debe utilizar la convención camelCase", linea, columna, id);
+        }
+        if (yaExiste(id, linea, columna)) return;
+        Simbolo p = new Simbolo(id, "PARAMETRO", tipoDato, "N/A", tabla.ambitoActual(), linea, columna, "ID");
+        p.setPosicion(nParametros);
+        tabla.insertar(p);
+    }
+
+    /** Al cerrarse la lista de parámetros la firma está completa: se detectan las declaraciones duplicadas (misma firma). */
+    public void cerrarFirma() {
+        bloqueDeMetodo = true;
+        if (metodoSim == null) return;
+        for (Simbolo o : tabla.mismosNombre(metodoSim.getId(), metodoSim.getAmbito(), metodoSim.getTipoSimbolo())) {
+            if (o != metodoSim && o.mismaFirma(metodoSim)) {
+                numErroresDuplicados++;
+                error_semantico("el " + (esConstructor ? "constructor" : "método") + " '" + metodoSim.firma()
+                    + "' ya fue declarado previamente en este ámbito con la misma firma", metodoLinea, metodoColumna, metodoSim.getId());
+                tabla.eliminar(metodoSim);   // la declaración inválida no queda en la tabla de símbolos
+                metodoSim = null;
+                break;
+            }
+        }
+    }
+
+    /** Fin del cuerpo: verifica que un método no void devuelva un valor en todos los caminos de ejecución. */
+    public void finalizarMetodo(Nodo cuerpo) {
+        if (!esConstructor && tipoRetornoActual != null && !tipoRetornoActual.equals("void") && !tipoRetornoActual.equals(ERR)) {
+            verifRetornosCompletos++;
+            if (!cuerpo.retorna && !cuerpo.texto.contains("[ERROR]"))
+                error_met("El método '" + metodoActual + "' debe devolver un valor compatible con el tipo '" + tipoRetornoActual
+                    + "' en todos los caminos de ejecución", cuerpo.lineaCierre, cuerpo.columnaCierre, "}");
+        }
+        tabla.salirAmbito();
+        finMetodo();
+    }
+
+    /** Cabecera de método con error sintáctico: se abre un ámbito para el cuerpo sin verificarlo contra la cabecera. */
+    public void abrirMetodoRecuperado(String id, int linea, int columna) {
+        iniciarCuerpo(id, ERR, false, linea, columna);
+        metodoSim = null;
+        tabla.entrarAmbitoUnico(tabla.ambitoActual().equals("GLOBAL") ? id : tabla.ambitoActual() + "." + id, "METODO");
+        bloqueDeMetodo = true;
+    }
+    public void cerrarMetodoRecuperado() { tabla.salirAmbito(); finMetodo(); }
+
+    /* ---------- llamadas a métodos, constructores y acceso a miembros ---------- */
+
+    /** Resuelve la sobrecarga con ManejadorMetodos y valida acceso; devuelve la llamada tipada (o ERROR si es inválida). */
+    private Expr resolverLlamada(String id, java.util.List<Simbolo> cands, String etiqueta, Argumentos args,
+                                 String texto, int linea, int columna) {
+        Expr err = new Expr(texto, ERR, linea, columna);
+        ManejadorMetodos.Resultado r = ManejadorMetodos.resolver(global(), etiqueta, cands, args);
+        verifArgumentos += r.argumentosVerificados;
+        if (r.error != null) {
+            if (r.culpable != null) error_met(r.error, r.culpable.linea, r.culpable.columna, r.culpable.texto);
+            else error_met(r.error, linea, columna, id);
+            return err;
+        }
+        if (!verificarAcceso(r.metodo, id, linea, columna)) return err;
+        boolean ctor = r.metodo.getTipoSimbolo().equals("CONSTRUCTOR");
+        return new Expr(texto, ctor ? r.metodo.getAmbito() : r.metodo.getTipoDato(), linea, columna);
+    }
+
+    /** id(args): método de la clase actual (o heredado), función global o constructor si 'id' es una clase. */
+    public Expr llamar(String id, Argumentos args, int linea, int columna) {
+        verifLlamadas++;
+        String texto = id + "(" + args.texto() + ")";
+        TablaSimbolos t = global();
+        if (t.buscarClase(id) != null) return llamarConstructor(id, args, texto, linea, columna);
+        String ctx = tabla.claseActual();
+        java.util.List<Simbolo> cands = ctx != null ? ManejadorClases.buscarMetodos(t, ctx, id) : new java.util.ArrayList<Simbolo>();
+        if (cands.isEmpty()) cands = t.metodosEn("GLOBAL", id);
+        if (cands.isEmpty()) {
+            error_met("El método '" + id + "' no está declarado o no puede resolverse en este contexto", linea, columna, id);
+            return new Expr(texto, ERR, linea, columna);
+        }
+        return resolverLlamada(id, cands, "método '" + id + "'", args, texto, linea, columna);
+    }
+
+    /** Clase(args): constructor; si la clase no declara ninguno solo existe el constructor por defecto (sin argumentos). */
+    private Expr llamarConstructor(String clase, Argumentos args, String texto, int linea, int columna) {
+        java.util.List<Simbolo> ctors = global().constructoresDe(clase);
+        if (ctors.isEmpty()) {
+            if (!args.isEmpty()) {
+                error_met("La clase '" + clase + "' no declara constructores con parámetros; el constructor por defecto no recibe argumentos (se proporcionaron "
+                    + args.size() + ")", linea, columna, clase);
+                return new Expr(texto, ERR, linea, columna);
+            }
+            return new Expr(texto, clase, linea, columna);
+        }
+        return resolverLlamada(clase, ctors, "constructor de la clase '" + clase + "'", args, texto, linea, columna);
+    }
+
+    /** objeto.metodo(args): el método se busca en la clase del objeto (y sus bases). */
+    public Expr llamarMiembro(String obj, String m, Argumentos args, int lo, int co, int lm, int cm) {
+        verifLlamadas++;
+        verifMiembros++;
+        String texto = obj + "." + m + "(" + args.texto() + ")";
+        Simbolo o = usarVariable(obj, lo, co);
+        if (o == null || o.getTipoDato().equals(ERR)) return new Expr(texto, ERR, lo, co);
+        String clase = o.getTipoDato();
+        TablaSimbolos t = global();
+        if (!ManejadorClases.esClase(t, clase)) {
+            error_cls("El identificador '" + obj + "' es de tipo '" + clase + "' y no posee métodos; no se puede invocar '" + m + "'", lm, cm, m);
+            return new Expr(texto, ERR, lo, co);
+        }
+        java.util.List<Simbolo> cands = ManejadorClases.buscarMetodos(t, clase, m);
+        if (cands.isEmpty()) {
+            if (ManejadorClases.buscarAtributo(t, clase, m) != null)
+                error_cls("'" + m + "' es un atributo de la clase '" + clase + "', no un método", lm, cm, m);
+            else
+                error_cls("El método '" + m + "' no está declarado en la clase '" + clase + "'", lm, cm, m);
+            return new Expr(texto, ERR, lo, co);
+        }
+        Expr r = resolverLlamada(m, cands, "método '" + m + "' de la clase '" + clase + "'", args, texto, lm, cm);
+        return new Expr(r.texto, r.tipo, lo, co);
+    }
+
+    /** Cierra el análisis de una llamada: imprime la regla solo si la llamada es válida. */
+    public Expr finLlamada(Expr r) {
+        if (r.esError()) {
+            r.arbol = "[ERROR]\n";
+        } else {
+            r.arbol = regla("llamada_metodo", r.texto);
+            System.out.println("Regla reconocida: llamada_metodo");
+        }
+        return r;
+    }
+    public Expr llamadaConError(int linea, int columna) {
+        Expr e = new Expr("[ERROR]", ERR, linea, columna);
+        e.arbol = "[ERROR]";
+        return e;
+    }
+
+    /** Resuelve obj.atributo: el objeto debe existir, ser de una clase y el atributo existir y ser visible. */
+    private Simbolo resolverAtributo(String obj, String attr, int lo, int co, int la, int ca) {
+        verifMiembros++;
+        Simbolo o = usarVariable(obj, lo, co);
+        if (o == null || o.getTipoDato().equals(ERR)) return null;
+        String clase = o.getTipoDato();
+        TablaSimbolos t = global();
+        if (!ManejadorClases.esClase(t, clase)) {
+            error_cls("El identificador '" + obj + "' es de tipo '" + clase + "' y no posee miembros; no se puede acceder a '" + attr + "'", la, ca, attr);
+            return null;
+        }
+        Simbolo a = ManejadorClases.buscarAtributo(t, clase, attr);
+        if (a == null) {
+            if (!ManejadorClases.buscarMetodos(t, clase, attr).isEmpty())
+                error_cls("'" + attr + "' es un método de la clase '" + clase + "'; para invocarlo use '" + obj + "." + attr + "(...)'", la, ca, attr);
+            else
+                error_cls("El atributo '" + attr + "' no está declarado en la clase '" + clase + "'", la, ca, attr);
+            return null;
+        }
+        return verificarAcceso(a, attr, la, ca) ? a : null;
+    }
+
+    /** obj.atributo usado como valor. */
+    public Expr exprMiembro(String obj, String attr, int lo, int co, int la, int ca) {
+        String texto = obj + "." + attr;
+        Simbolo a = resolverAtributo(obj, attr, lo, co, la, ca);
+        if (a == null) return new Expr(texto, ERR, lo, co);
+        System.out.println("Regla reconocida: acceso_miembro -> " + texto + " [tipo: " + a.getTipoDato() + "]");
+        return new Expr(texto, a.getTipoDato(), lo, co);
+    }
+
+    /** La primera vez que se declara un objeto sin inicializar se necesita un constructor sin parámetros. */
+    private void verificarConstructorPorDefecto(String clase, String id, int linea, int columna) {
+        java.util.List<Simbolo> ctors = global().constructoresDe(clase);
+        if (ctors.isEmpty()) return;                               // constructor por defecto implícito
+        for (Simbolo c : ctors) if (c.getTiposParam().isEmpty()) return;
+        error_met("La clase '" + clase + "' no tiene un constructor sin parámetros; el objeto '" + id
+            + "' debe inicializarse con uno de sus constructores", linea, columna, id);
+    }
+
+    /** La producción "tipo" llama a esto en cada una de sus alternativas: guarda
+        el último tipo de dato reconocido, para que "inicializacion" lo use al
+        registrar cada identificador de la lista "nombres" que le sigue. */
+    public void fijarTipoActual(String tipo) {
+        tipoActual = tipo;
+    }
+
+    /** Registra cada identificador de una lista "nombres" (atributo, variable local o variable global). */
+    public void registrarIdentificador(String id, Expr e, boolean tieneValor, int linea, int columna) {
+        String valor = e != null ? e.texto : null;
+        boolean local = tabla.enMetodo();
+        String categoria = (local || !tabla.enClase()) ? "VARIABLE" : "ATRIBUTO";
+        String tipoDato = tipoActual != null ? tipoActual : "N/A";
+        boolean objeto = ManejadorClases.esClase(global(), tipoDato);
+        if (!esCamelCase(id)) {
+            error_semantico("el identificador de " + categoria.toLowerCase() + " '" + id + "' debe utilizar la convención camelCase", linea, columna, id);
+        }
+        // un objeto local se construye solo (constructor por defecto), por lo que no exige valor inicial
+        if (local && !tieneValor && !objeto && !tipoDato.equals(ERR)) {
+            error_semantico("la variable local '" + id + "' debe inicializarse obligatoriamente al momento de su declaración", linea, columna, id);
+        }
+        if (tieneValor && e != null) verificarAsignacion(id, categoria, tipoDato, e.tipo, linea, columna);
+        if (!tieneValor && objeto) verificarConstructorPorDefecto(tipoDato, id, linea, columna);
+        if (yaExiste(id, linea, columna)) return;
+        String valorFinal = tieneValor ? valor : (local ? (objeto ? "constructor_defecto" : "sin_inicializar") : "null");
+        Simbolo s = new Simbolo(id, categoria, tipoDato, valorFinal, tabla.ambitoActual(), linea, columna, "ID");
+        if (tabla.enClase()) s.setVisibilidad(visibilidadEfectiva());
+        tabla.insertar(s);
+    }
+
+    public void registrarConstante(String id, String tipoDato, Expr e, int linea, int columna) {
+        String valor = e.texto;
+        if (!(esSnakeCase(id) || esCamelCase(id))) {
+            error_semantico("el identificador de constante '" + id + "' debe utilizar la convención SNAKE_CASE o camelCase", linea, columna, id);
+        }
+        verificarAsignacion(id, "CONSTANTE", tipoDato, e.tipo, linea, columna);
+        if (yaExiste(id, linea, columna)) return;
+        Simbolo s = new Simbolo(id, "CONSTANTE", tipoDato, valor, tabla.ambitoActual(), linea, columna, "ID");
+        if (tabla.enClase()) s.setVisibilidad(visibilidadEfectiva());
+        tabla.insertar(s);
+    }
+
+    /** Constante sin inicializar: el error de "debe inicializarse" ya lo reporta la regla sintáctica que la detecta. */
+    public void registrarConstanteSinInit(String id, String tipoDato, int linea, int columna) {
+        if (!(esSnakeCase(id) || esCamelCase(id))) {
+            error_semantico("el identificador de constante '" + id + "' debe utilizar la convención SNAKE_CASE o camelCase", linea, columna, id);
+        }
+        if (tabla.existeEnAmbito(id, tabla.ambitoActual())) return;
+        Simbolo s = new Simbolo(id, "CONSTANTE", tipoDato, "sin_inicializar", tabla.ambitoActual(), linea, columna, "ID");
+        if (tabla.enClase()) s.setVisibilidad(visibilidadEfectiva());
+        tabla.insertar(s);
+    }
+:};
+
+/* TERMINALES DE C++ Y ESTRUCTURALES */
+terminal DIRECTIVA, IF, ELSE, WHILE, FOR, DO, RETURN, INT, FLOAT, DOUBLE, CHAR, BOOL, VOID, CLASS, STRUCT, PUBLIC, PRIVATE, PROTECTED, USING, NAMESPACE;
+terminal ID, ENTERO, FLOTANTE, CADENA, CARACTER;
+terminal OP_SUMA, OP_RESTA, OP_MULT, OP_DIV, OP_MOD, OP_INC, OP_DEC;
+terminal OP_ASIG, OP_ASIG_SUMA, OP_ASIG_RESTA, OP_ASIG_MULT, OP_ASIG_DIV;
+terminal OP_IGUAL, OP_DISTINTO, OP_MENOR, OP_MAYOR, OP_MENOR_IGUAL, OP_MAYOR_IGUAL;
+terminal OP_AND, OP_OR, OP_NOT, OP_ACCESO;
+terminal PAR_A, PAR_C, LLAVE_A, LLAVE_C, CORCH_A, CORCH_C, PUNTO_COMA, COMA, DOS_PUNTOS;
+terminal ERROR_LEXICO;
+terminal PACKAGE, PUNTO;
+
+/* TERMINALES: PRÁCTICA DE DECLARACIONES (atributos, variables, constantes) */
+terminal FINAL, STRING, BOOLEANO;
+
+/* TERMINALES: PRÁCTICA DE EXPRESIONES (lectura, escritura y asignaciones) */
+terminal LEER, ESCRIBIR;
+
+terminal SWITCH, CASE, DEFAULT, BREAK, CONTINUE, CIN, COUT, SALIDA, ENTRADA;
+
+non terminal String archivo, paquete, ruta, importaciones, importacion, unidades, unidad, clase, aperturaClase, miembros, miembro, tipo, declaracion, nombres, inicializacion, metodo, constructor, cabecera_if, cabecera_while, cabecera_switch, cabecera_for, for_inicio, for_cond, for_act, actualizacion, op_asig, lectura, escritura, ids_lectura, ids_entrada, elems_salida, elementos;
+non terminal String parametros_optativos, parametros, parametro;
+/* Sentencias: devuelven un Nodo (árbol + información de flujo para verificar el return en todos los caminos) */
+non terminal Nodo retorno, bloque, sentencias, sentencia, seleccion, ciclo, switch_stmt, casos, caso;
+non terminal MarcaAmbito abre_bloque;
+non terminal Argumentos lista_argumentos;
+non terminal abre_for, modificador, herencia_mod;
+/* Expresiones: devuelven un Expr (texto + tipo + posición) para la verificación de tipos */
+non terminal Expr expresion, condicion, log_or, log_and, igualdad, relacion, suma, producto, unario, primario, valor, llamada_metodo;
+
+start with archivo;
+
+archivo ::= paquete importaciones unidades:u {: RESULT=parser.regla("archivo",u); :};
+paquete ::= PACKAGE ruta PUNTO_COMA {: RESULT=""; :} | {: RESULT=""; :};
+ruta ::= ID:i {: RESULT=i.toString(); :} | ruta:r PUNTO ID:i {: RESULT=r+"."+i; :};
+importaciones ::= importaciones importacion | ;
+importacion ::= DIRECTIVA {: parser.regla("importacion",""); :}
+ | USING NAMESPACE ID PUNTO_COMA {: parser.regla("importacion",""); :};
+/* unidad: clase, función global, declaración global o (para detectar el error semántico) un return suelto */
+unidades ::= unidades:a unidad:b {: RESULT=a+b; :} | unidad:a {: RESULT=a; :};
+unidad ::= clase:a {: RESULT=a; :} | metodo:a {: RESULT=a; :} | declaracion:a {: RESULT=a; :} | retorno:a {: RESULT=a.texto; :};
+
+/* ==========================================
+   CLASES, HERENCIA Y VISIBILIDAD
+   ========================================== */
+herencia_mod ::= PUBLIC | PRIVATE | PROTECTED | ;
+aperturaClase ::= CLASS ID:i
+    {: String amb = parser.registrarClase(i.toString(), null, ileft, iright, 0, 0); parser.tabla.entrarAmbito(amb, "CLASE"); RESULT=i.toString(); :}
+ | CLASS ID:i DOS_PUNTOS herencia_mod ID:p
+    {: String amb = parser.registrarClase(i.toString(), p.toString(), ileft, iright, pleft, pright); parser.tabla.entrarAmbito(amb, "CLASE"); RESULT=i.toString(); :};
+clase ::= aperturaClase:nombre LLAVE_A miembros:m LLAVE_C {: parser.tabla.salirAmbito(); RESULT=parser.regla("clase "+nombre,m); :}
+ | aperturaClase:nombre LLAVE_A miembros:m LLAVE_C PUNTO_COMA {: parser.tabla.salirAmbito(); RESULT=parser.regla("clase "+nombre,m); :};
+modificador ::= PUBLIC {: parser.fijarModificador("public"); :} | PRIVATE {: parser.fijarModificador("private"); :} | PROTECTED {: parser.fijarModificador("protected"); :};
+miembros ::= miembros:a miembro:b {: RESULT=a+b; :} | {: RESULT=""; :};
+miembro ::= declaracion:d {: RESULT=d; :} | metodo:m {: RESULT=m; :} | constructor:c {: RESULT=c; :}
+ | modificador declaracion:d {: parser.finModificador(); RESULT=d; :}
+ | modificador metodo:m {: parser.finModificador(); RESULT=m; :}
+ | modificador constructor:c {: parser.finModificador(); RESULT=c; :}
+ | PUBLIC DOS_PUNTOS {: parser.fijarSeccion("public"); RESULT=""; :}
+ | PRIVATE DOS_PUNTOS {: parser.fijarSeccion("private"); RESULT=""; :}
+ | PROTECTED DOS_PUNTOS {: parser.fijarSeccion("protected"); RESULT=""; :}
+ | retorno:r {: RESULT=r.texto; :}
+ | error PUNTO_COMA {: parser.recuperada("miembro hasta ';'"); RESULT="[ERROR]\n"; :};
+tipo ::= INT {: RESULT="int"; parser.fijarTipoActual(RESULT); :} | FLOAT {: RESULT="float"; parser.fijarTipoActual(RESULT); :}
+ | DOUBLE {: RESULT="double"; parser.fijarTipoActual(RESULT); :} | CHAR {: RESULT="char"; parser.fijarTipoActual(RESULT); :}
+ | BOOL {: RESULT="bool"; parser.fijarTipoActual(RESULT); :} | STRING {: RESULT="string"; parser.fijarTipoActual(RESULT); :}
+ | ID:i {: RESULT=parser.tipoClase(i.toString(), ileft, iright); parser.fijarTipoActual(RESULT); :};
+declaracion ::= tipo:t nombres:n PUNTO_COMA {: RESULT=parser.regla("declaracion",t+" "+n); :}
+ | FINAL tipo:t ID:i OP_ASIG expresion:e PUNTO_COMA {: parser.registrarConstante(i.toString(), t, e, ileft, iright); RESULT=parser.regla("constante",t+" "+i+" = "+e.texto); :}
+ | FINAL tipo:t2 ID:i PUNTO_COMA:s {: parser.error_en("la constante debe inicializarse",sleft,sright,";"); parser.registrarConstanteSinInit(i.toString(), t2, ileft, iright); RESULT="[ERROR]\n"; :};
+nombres ::= inicializacion:a {: RESULT=a; :}
+ | nombres:a COMA inicializacion:b {: RESULT=a+", "+b; :}
+ | nombres:a ID:i {: parser.error_en("falta ',' entre identificadores",ileft,iright,i); RESULT=a+" [ERROR] "+i; :}
+ | nombres:a COMA COMA:c inicializacion:b {: parser.error_en("coma duplicada",cleft,cright,","); RESULT=a+" [ERROR] "+b; :};
+inicializacion ::= ID:i {: parser.registrarIdentificador(i.toString(), null, false, ileft, iright); RESULT=i.toString(); :}
+ | ID:i OP_ASIG expresion:e {: parser.registrarIdentificador(i.toString(), e, true, ileft, iright); RESULT=i+" = "+e.texto; :};
+
+/* ==========================================
+   REGLAS DE MÉTODOS, CONSTRUCTORES Y PARÁMETROS
+   ========================================== */
+metodo ::= VOID ID:i PAR_A {: parser.registrarMetodo(i.toString(), "void", ileft, iright); :} parametros_optativos:p PAR_C {: parser.cerrarFirma(); :} bloque:b
+    {:
+        parser.finalizarMetodo(b);
+        String r = parser.regla("metodo_sin_retorno", i + "(" + p + ")\n" + b.texto);
+        RESULT = r;
+        System.out.println("Regla reconocida: metodo_sin_retorno");
+    :}
+    | tipo:t ID:i PAR_A {: parser.registrarMetodo(i.toString(), t, ileft, iright); :} parametros_optativos:p PAR_C {: parser.cerrarFirma(); :} bloque:b
+    {:
+        parser.finalizarMetodo(b);
+        String r = parser.regla("metodo_con_retorno", t + " " + i + "(" + p + ")\n" + b.texto);
+        RESULT = r;
+        System.out.println("Regla reconocida: metodo_con_retorno");
+    :}
+    | VOID ID:i error {: parser.abrirMetodoRecuperado(i.toString(), ileft, iright); :} bloque:b
+    {:
+        parser.cerrarMetodoRecuperado();
+        parser.error_en("se esperaba '(' después del nombre del método", ileft, iright, i);
+        RESULT = "[ERROR]\n" + b.texto;
+    :}
+    | tipo:t ID:i error {: parser.abrirMetodoRecuperado(i.toString(), ileft, iright); :} bloque:b
+    {:
+        parser.cerrarMetodoRecuperado();
+        parser.error_en("se esperaba '(' después del nombre del método", ileft, iright, i);
+        RESULT = "[ERROR]\n" + b.texto;
+    :};
+
+constructor ::= ID:i PAR_A {: parser.registrarConstructor(i.toString(), ileft, iright); :} parametros_optativos:p PAR_C {: parser.cerrarFirma(); :} bloque:b
+    {:
+        parser.finalizarMetodo(b);
+        RESULT = parser.regla("constructor", i + "(" + p + ")\n" + b.texto);
+    :};
+
+parametros_optativos ::= parametros:p {: RESULT=p; :} | {: RESULT=""; :};
+
+parametros ::= parametro:a {: RESULT=a; :}
+    | parametros:a COMA parametro:b {: RESULT=a + ", " + b; :}
+    | parametros:a COMA COMA:c parametro:b
+    {:
+        parser.error_en("se esperaba un parámetro después de ','", cleft, cright, ",");
+        RESULT = a + " [ERROR] " + b;
+    :}
+    | parametros:a ID:i {: parser.error_en("falta ',' entre parámetros", ileft, iright, i); RESULT = a + " [ERROR] " + i; :};
+
+parametro ::= tipo:t ID:i {: parser.registrarParametro(i.toString(), t, ileft, iright); RESULT=parser.regla("lista_parametros", t + " " + i); :}
+    | tipo:t error
+    {:
+        parser.error_en("se esperaba un identificador para el parámetro", tleft, tright, t);
+        RESULT = "[ERROR]";
+    :};
+
+/* ==========================================
+   BLOQUES Y SENTENCIAS (cada bloque abre su propio ámbito)
+   ========================================== */
+abre_bloque ::= LLAVE_A {: RESULT=parser.abrirBloque(); :};
+bloque ::= abre_bloque:m sentencias:s LLAVE_C:c
+    {:
+        parser.cerrarBloque(m);
+        Nodo n = new Nodo(parser.regla("bloque",s.texto), s.retorna, s.hayBreak);
+        n.lineaCierre = cleft; n.columnaCierre = cright;
+        RESULT = n;
+    :}
+ | abre_bloque:m sentencias:s error LLAVE_C
+    {:
+        parser.cerrarBloque(m);
+        parser.recuperada("bloque hasta '}'");
+        RESULT = new Nodo(s.texto + "[ERROR]\n", false, s.hayBreak);
+    :};
+sentencias ::= sentencias:a sentencia:b {: RESULT=new Nodo(a.texto+b.texto, a.retorna||b.retorna, a.hayBreak||b.hayBreak); :} | {: RESULT=Nodo.vacio(); :};
+sentencia ::= lectura:s {: RESULT=new Nodo(s); :} | escritura:s {: RESULT=new Nodo(s); :}
+ | actualizacion:s PUNTO_COMA {: RESULT=new Nodo(parser.regla("asignacion",s)); :}
+ | declaracion:s {: RESULT=new Nodo(s); :} | seleccion:s {: RESULT=s; :}
+ | ciclo:s {: RESULT=s; :} | switch_stmt:s {: RESULT=s; :}
+ | bloque:s {: RESULT=s; :} | retorno:s {: RESULT=s; :}
+ | llamada_metodo:s PUNTO_COMA {: RESULT=new Nodo(s.arbol); :}
+ | BREAK:b PUNTO_COMA {: RESULT=parser.sentenciaBreak(bleft, bright); :}
+ | CONTINUE:c PUNTO_COMA {: RESULT=parser.sentenciaContinue(cleft, cright); :}
+ | PUNTO_COMA {: RESULT=new Nodo(parser.regla("sentencia_vacia","")); :}
+ | error PUNTO_COMA {: parser.recuperada("sentencia hasta ';'"); RESULT=new Nodo("[ERROR]\n"); :};
+
+retorno ::= RETURN:r expresion:e PUNTO_COMA {: RESULT=parser.sentenciaReturn(e, rleft, rright); :}
+    | RETURN:r PUNTO_COMA {: RESULT=parser.sentenciaReturn(null, rleft, rright); :};
+
+seleccion ::= cabecera_if:c bloque:b {: RESULT=parser.control("seleccion_simple",c+"\n"+b.texto, false, b.hayBreak); :}
+ | cabecera_if:c bloque:b ELSE bloque:e {: RESULT=parser.control("seleccion_doble",c+"\n"+b.texto+"else\n"+e.texto, b.retorna && e.retorna, b.hayBreak || e.hayBreak); :}
+ | cabecera_if:c bloque:b ELSE seleccion:e {: RESULT=parser.control("seleccion_doble",c+"\n"+b.texto+"else\n"+e.texto, b.retorna && e.retorna, b.hayBreak || e.hayBreak); :};
+seleccion ::= IF error bloque:b {: parser.recuperada("cabecera de if hasta bloque; se esperaba '(' después de 'if'"); RESULT=new Nodo("[ERROR] if\n"+b.texto, false, b.hayBreak); :};
+cabecera_if ::= IF PAR_A condicion:c PAR_C {: parser.verificarCondicion(c, "if"); RESULT=c.texto; :}
+ | IF PAR_A condicion:c {: parser.error_actual("se esperaba ')' en la condición de 'if'"); parser.verificarCondicion(c, "if"); RESULT="[ERROR] "+c.texto; :}
+ | IF PAR_A error PAR_C {: parser.recuperada("condición de if hasta ')'"); RESULT="[ERROR] condición"; :};
+cabecera_while ::= WHILE PAR_A condicion:c PAR_C {: parser.entrarCiclo(); parser.verificarCondicion(c, "while"); RESULT=c.texto; :}
+ | WHILE PAR_A condicion:c {: parser.entrarCiclo(); parser.error_actual("se esperaba ')' en la condición de 'while'"); parser.verificarCondicion(c, "while"); RESULT="[ERROR] "+c.texto; :}
+ | WHILE PAR_A error PAR_C {: parser.entrarCiclo(); parser.recuperada("condición de while hasta ')'"); RESULT="[ERROR] condición"; :};
+ciclo ::= cabecera_while:c bloque:b {: parser.salirCiclo(); RESULT=parser.nodoCiclo("ciclo_mientras", c+"\n"+b.texto, b, parser.esVerdadero(c), false); :}
+ | DO {: parser.entrarCiclo(); :} bloque:b WHILE PAR_A condicion:c PAR_C PUNTO_COMA {: parser.salirCiclo(); parser.verificarCondicion(c, "do-while"); RESULT=parser.nodoCiclo("ciclo_hacer_mientras", b.texto+c.texto, b, false, true); :}
+ | cabecera_for:c bloque:b {: parser.salirCiclo(); parser.cerrarFor(); RESULT=parser.nodoCiclo("ciclo_para", c+"\n"+b.texto, b, parser.forInfinito(c), false); :};
+abre_for ::= FOR PAR_A {: parser.abrirFor(); :};
+cabecera_for ::= abre_for for_inicio:i PUNTO_COMA for_cond:c PUNTO_COMA for_act:a PAR_C {: parser.entrarCiclo(); RESULT="inicio: "+i+"; condición: "+c+"; actualización: "+a; :}
+ | abre_for for_inicio PUNTO_COMA for_cond PAR_C:p {: parser.entrarCiclo(); parser.error_en("falta el segundo ';' y la sección de actualización de 'for'",pleft,pright,")"); RESULT="[ERROR] for incompleto"; :}
+ | abre_for error PAR_C {: parser.entrarCiclo(); parser.recuperada("cabecera de for hasta ')'"); RESULT="[ERROR] for"; :};
+for_inicio ::= actualizacion:a {: RESULT=a; :} | tipo:t nombres:n {: RESULT=t+" "+n; :} | {: RESULT=""; :};
+for_cond ::= condicion:c {: parser.verificarCondicion(c, "for"); RESULT=c.texto; :} | {: RESULT=""; :};
+for_act ::= actualizacion:a {: RESULT=a; :} | {: RESULT=""; :};
+condicion ::= expresion:e {: RESULT=e; :};
+actualizacion ::= ID:i op_asig:o expresion:e {: RESULT=parser.asignar(i.toString(), o, e, ileft, iright); :}
+ | ID:i PUNTO ID:a op_asig:o expresion:e {: RESULT=parser.asignarMiembro(i.toString(), a.toString(), o, e, ileft, iright, aleft, aright); :}
+ | ID:i OP_INC {: RESULT=parser.incrementar(i.toString(), "++", false, ileft, iright); :} | ID:i OP_DEC {: RESULT=parser.incrementar(i.toString(), "--", false, ileft, iright); :}
+ | OP_INC ID:i {: RESULT=parser.incrementar(i.toString(), "++", true, ileft, iright); :} | OP_DEC ID:i {: RESULT=parser.incrementar(i.toString(), "--", true, ileft, iright); :};
+op_asig ::= OP_ASIG {: RESULT="="; :} | OP_ASIG_SUMA {: RESULT="+="; :}
+ | OP_ASIG_RESTA {: RESULT="-="; :} | OP_ASIG_MULT {: RESULT="*="; :} | OP_ASIG_DIV {: RESULT="/="; :};
+cabecera_switch ::= SWITCH PAR_A expresion:e PAR_C {: parser.abrirSwitch(e); RESULT=e.texto; :};
+switch_stmt ::= cabecera_switch:c LLAVE_A {: parser.abrirAmbitoSwitch(); :} casos:s LLAVE_C
+    {: parser.cerrarSwitch(); RESULT=parser.control("seleccion_multiple",c+"\n"+s.texto, s.defecto && s.retorna && !s.hayBreak, false); :};
+casos ::= casos:a caso:b {: RESULT=new Nodo(a.texto+b.texto, b.retorna, a.hayBreak||b.hayBreak, a.defecto||b.defecto); :} | {: RESULT=Nodo.vacio(); :};
+caso ::= CASE expresion:e DOS_PUNTOS {: parser.verificarCase(e); :} sentencias:s {: RESULT=new Nodo(parser.regla("case "+e.texto,s.texto), s.retorna, s.hayBreak, false); :}
+ | DEFAULT:d DOS_PUNTOS {: parser.verificarDefault(dleft, dright); :} sentencias:s {: RESULT=new Nodo(parser.regla("default",s.texto), s.retorna, s.hayBreak, true); :}
+ | CASE DOS_PUNTOS:d sentencias:s {: parser.error_en("se esperaba un valor después de 'case'",dleft,dright,":"); RESULT=new Nodo("[ERROR] case\n"+s.texto, s.retorna, s.hayBreak, false); :};
+
+lectura ::= LEER PAR_A ids_lectura:n PAR_C PUNTO_COMA {: RESULT=parser.regla("lectura",n); :}
+ | CIN ids_entrada:n PUNTO_COMA {: RESULT=parser.regla("lectura",n); :};
+ids_lectura ::= ID:i {: parser.usarLectura(i.toString(), ileft, iright); RESULT=i.toString(); :}
+ | ids_lectura:a COMA ID:i {: parser.usarLectura(i.toString(), ileft, iright); RESULT=a+", "+i; :}
+ | ids_lectura:a ID:i {: parser.error_en("falta ',' entre identificadores",ileft,iright,i); RESULT=a+" [ERROR] "+i; :}
+ | ids_lectura:a COMA COMA:c ID:i {: parser.error_en("coma duplicada",cleft,cright,","); RESULT=a+" [ERROR] "+i; :};
+ids_entrada ::= ENTRADA ID:i {: parser.usarLectura(i.toString(), ileft, iright); RESULT=i.toString(); :} | ids_entrada:a ENTRADA ID:i {: parser.usarLectura(i.toString(), ileft, iright); RESULT=a+", "+i; :};
+escritura ::= ESCRIBIR PAR_A elementos:e PAR_C PUNTO_COMA {: RESULT=parser.regla("escritura",e); :}
+ | COUT elems_salida:e PUNTO_COMA {: RESULT=parser.regla("escritura",e); :};
+elementos ::= expresion:e {: RESULT=e.texto; :} | elementos:a COMA expresion:b {: RESULT=a+", "+b.texto; :};
+elems_salida ::= SALIDA expresion:e {: RESULT=e.texto; :} | elems_salida:a SALIDA expresion:b {: RESULT=a+", "+b.texto; :};
+
+/* ==========================================
+   LLAMADAS A MÉTODOS Y ARGUMENTOS
+   ========================================== */
+llamada_metodo ::= ID:i PAR_A PAR_C
+    {: RESULT = parser.finLlamada(parser.llamar(i.toString(), new Argumentos(), ileft, iright)); :}
+    | ID:i PAR_A lista_argumentos:args PAR_C
+    {: RESULT = parser.finLlamada(parser.llamar(i.toString(), args, ileft, iright)); :}
+    | ID:o PUNTO ID:m PAR_A PAR_C
+    {: RESULT = parser.finLlamada(parser.llamarMiembro(o.toString(), m.toString(), new Argumentos(), oleft, oright, mleft, mright)); :}
+    | ID:o PUNTO ID:m PAR_A lista_argumentos:args PAR_C
+    {: RESULT = parser.finLlamada(parser.llamarMiembro(o.toString(), m.toString(), args, oleft, oright, mleft, mright)); :}
+    | ID:i PAR_A error
+    {:
+        parser.error_en("se esperaba ')' al finalizar los argumentos", ileft, iright, i);
+        RESULT = parser.llamadaConError(ileft, iright);
+    :};
+
+lista_argumentos ::= expresion:e {: parser.regla("lista_argumentos", e.texto); RESULT=new Argumentos().con(e); :}
+    | lista_argumentos:a COMA expresion:b {: RESULT=a.con(b); :}
+    | COMA:c expresion:b
+    {:
+        parser.error_en("se esperaba un argumento antes de ','", cleft, cright, ",");
+        RESULT = new Argumentos().con(new Expr("[ERROR]", ManejadorTipos.ERROR, cleft, cright)).con(b);
+    :}
+    | lista_argumentos:a COMA COMA:c expresion:b
+    {:
+        parser.error_en("se esperaba una expresión después de ','", cleft, cright, ",");
+        RESULT = a.con(new Expr("[ERROR]", ManejadorTipos.ERROR, cleft, cright)).con(b);
+    :};
+
+expresion ::= log_or:e {: RESULT=e; :};
+log_or ::= log_or:a OP_OR:o log_and:b {: RESULT=parser.binario(a,"||",b,"expresion_logica",oleft,oright); :} | log_and:e {: RESULT=e; :};
+log_and ::= log_and:a OP_AND:o igualdad:b {: RESULT=parser.binario(a,"&&",b,"expresion_logica",oleft,oright); :} | igualdad:e {: RESULT=e; :};
+igualdad ::= igualdad:a OP_IGUAL:o relacion:b {: RESULT=parser.binario(a,"==",b,"expresion_relacional",oleft,oright); :}
+ | igualdad:a OP_DISTINTO:o relacion:b {: RESULT=parser.binario(a,"!=",b,"expresion_relacional",oleft,oright); :} | relacion:e {: RESULT=e; :};
+relacion ::= relacion:a OP_MENOR:o suma:b {: RESULT=parser.binario(a,"<",b,"expresion_relacional",oleft,oright); :}
+ | relacion:a OP_MAYOR:o suma:b {: RESULT=parser.binario(a,">",b,"expresion_relacional",oleft,oright); :}
+ | relacion:a OP_MENOR_IGUAL:o suma:b {: RESULT=parser.binario(a,"<=",b,"expresion_relacional",oleft,oright); :}
+ | relacion:a OP_MAYOR_IGUAL:o suma:b {: RESULT=parser.binario(a,">=",b,"expresion_relacional",oleft,oright); :} | suma:e {: RESULT=e; :};
+suma ::= suma:a OP_SUMA:o producto:b {: RESULT=parser.binario(a,"+",b,"expresion_aritmetica",oleft,oright); :}
+ | suma:a OP_RESTA:o producto:b {: RESULT=parser.binario(a,"-",b,"expresion_aritmetica",oleft,oright); :} | producto:e {: RESULT=e; :};
+producto ::= producto:a OP_MULT:o unario:b {: RESULT=parser.binario(a,"*",b,"expresion_aritmetica",oleft,oright); :}
+ | producto:a OP_DIV:o unario:b {: RESULT=parser.binario(a,"/",b,"expresion_aritmetica",oleft,oright); :}
+ | producto:a OP_MOD:o unario:b {: RESULT=parser.binario(a,"%",b,"expresion_aritmetica",oleft,oright); :} | unario:e {: RESULT=e; :};
+unario ::= OP_NOT:o unario:e {: RESULT=parser.unario("!",e,oleft,oright); :}
+ | OP_RESTA:o unario:e {: RESULT=parser.unario("-",e,oleft,oright); :} | OP_SUMA:o unario:e {: RESULT=parser.unario("+",e,oleft,oright); :} | primario:e {: RESULT=e; :};
+primario ::= ID:i {: RESULT=parser.exprIdentificador(i.toString(), ileft, iright); :}
+ | ID:o PUNTO ID:a {: RESULT=parser.exprMiembro(o.toString(), a.toString(), oleft, oright, aleft, aright); :}
+ | valor:v {: RESULT=v; :}
+ | llamada_metodo:lm {: RESULT=parser.valorDeLlamada(lm); :}
+ | PAR_A:p expresion:e PAR_C {: RESULT=new Expr("("+e.texto+")", e.tipo, pleft, pright).comoConstante(e.constante); :};
+valor ::= ENTERO:v {: RESULT=new Expr(v.toString(),"int",vleft,vright).comoConstante(true); :} | FLOTANTE:v {: RESULT=new Expr(v.toString(),"float",vleft,vright).comoConstante(true); :}
+ | CADENA:v {: RESULT=new Expr(v.toString(),"string",vleft,vright).comoConstante(true); :} | CARACTER:v {: RESULT=new Expr(v.toString(),"char",vleft,vright).comoConstante(true); :}
+ | BOOLEANO:v {: RESULT=new Expr(v.toString(),"bool",vleft,vright).comoConstante(true); :};

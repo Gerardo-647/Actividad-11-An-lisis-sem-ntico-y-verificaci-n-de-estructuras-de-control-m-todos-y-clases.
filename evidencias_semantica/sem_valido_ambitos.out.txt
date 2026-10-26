@@ -1,0 +1,142 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - ESTRUCTURAS DE CONTROL, MÉTODOS Y CLASES
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: estructuras de control, metodos, clases y ambitos (C++, tipado estatico)
+Archivo: pruebas_semantica/sem_valido_ambitos.txt
+Regla reconocida: declaracion
+Regla reconocida: constante
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: expresion_aritmetica -> atributo + local [tipo: int]
+Regla reconocida: expresion_aritmetica -> atributo + local + contadorGlobal [tipo: int]
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: expresion_aritmetica -> local + atributo [tipo: int]
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: expresion_aritmetica -> local + interno [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: bloque
+Regla reconocida: expresion_relacional -> i < 3 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: expresion_aritmetica -> local + i [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: ciclo_para
+Regla reconocida: expresion_relacional -> i < 3 [tipo: bool]
+Regla reconocida: condicion
+Regla reconocida: expresion_aritmetica -> local + i [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: ciclo_para
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: declaracion
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: clase Ambitos
+Regla reconocida: declaracion
+Regla reconocida: expresion_aritmetica -> local + MAXIMO [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: clase Otra
+Regla reconocida: lista_parametros
+Regla reconocida: declaracion
+Regla reconocida: asignacion
+Regla reconocida: break
+Regla reconocida: case 1
+Regla reconocida: asignacion
+Regla reconocida: default
+Regla reconocida: seleccion_multiple
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: lista_parametros
+Regla reconocida: declaracion
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 21
+  Operaciones aritméticas (+ - * / %):                             7
+  Operaciones relacionales (> < >= <= == !=):                      2
+  Operaciones lógicas (&& || !):                                   0
+  Condiciones de control (if, while, do-while, for):               2
+  Retornos de método:                                              0
+Errores detectados:
+  Incompatibilidad de tipos:                  0
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 0
+Resultado semántico: CORRECTO (sin errores semánticos)
+================================================================================
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO: ESTRUCTURAS DE CONTROL, MÉTODOS, CLASES Y ÁMBITOS
+================================================================================
+Verificaciones realizadas:
+  Condiciones de control (if, while, do-while, for):         2
+  Instrucciones break / continue / return (contexto):        1
+  Verificaciones de switch (expresión, case, default):       3
+  Declaraciones de métodos y constructores:                  5
+  Llamadas a métodos y constructores:                        0
+  Argumentos comparados contra parámetros:                   0
+  Retornos de método (tipo) y métodos con retorno completo:  0 / 0
+  Clases declaradas o referenciadas:                         2
+  Accesos a miembros de objetos (atributos y métodos):       0
+  Resoluciones de identificadores (ámbitos):                 28
+  Ámbitos de bloque abiertos (bloque, for, switch):          7
+Errores detectados por categoría:
+  Estructuras de control (break/continue/return/switch):     0
+  Métodos (llamadas, argumentos, firmas, retorno completo):  0
+  Clases y miembros (herencia, existencia, visibilidad):     0
+  Ámbitos e identificadores (no declarado / fuera de ámbito): 0
+  Declaraciones duplicadas:                                  0
+  Tipos y constantes:                                        0
+  Otros (convención de nombres, inicialización):             0
+Resultado general: CORRECTO (sin errores semánticos)
+================================================================================
+====================================================================================================================================================================================================
+                                                                                         TABLA DE SÍMBOLOS
+====================================================================================================================================================================================================
+ID                 Categoría     Tipo Dato   Valor                          Ámbito                      Visib.     Línea   Columna   Token Originador Detalle
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+contadorGlobal     VARIABLE      int         0                              GLOBAL                      -          1       5         ID               
+MAXIMO             CONSTANTE     int         100                            GLOBAL                      -          2       11        ID               
+Ambitos            CLASE         void        N/A                            GLOBAL                      -          4       7         ID               miembros: atributo, uno(), dos()
+atributo           ATRIBUTO      int         1                              Ambitos                     private    5       9         ID               clase propietaria: Ambitos
+uno                METODO        void        N/A                            Ambitos                     private    7       10        ID               () -> void
+local              VARIABLE      int         2                              Ambitos.uno                 -          8       13        ID               
+atributo2          VARIABLE      int         atributo + local + contadorGlobal Ambitos.uno                 -          9       13        ID               
+local              VARIABLE      int         5                              Ambitos.uno.bloque1         -          11      17        ID               
+interno            VARIABLE      int         local + atributo               Ambitos.uno.bloque1         -          12      17        ID               
+local              VARIABLE      int         9                              Ambitos.uno.bloque1.bloque1 -          14      21        ID               
+i                  VARIABLE      int         0                              Ambitos.uno.for1            -          18      18        ID               
+i                  VARIABLE      int         0                              Ambitos.uno.for2            -          21      18        ID               
+dos                METODO        void        N/A                            Ambitos                     private    26      10        ID               () -> void
+local              VARIABLE      int         7                              Ambitos.dos                 -          27      13        ID               
+Otra               CLASE         void        N/A                            GLOBAL                      -          32      7         ID               miembros: uno()
+uno                METODO        void        N/A                            Otra                        private    33      10        ID               () -> void
+local              VARIABLE      int         3                              Otra.uno                    -          34      13        ID               
+tres               METODO        void        N/A                            GLOBAL                      -          39      6         ID               (int parametro) -> void
+parametro          PARAMETRO     int         N/A                            tres                        -          39      15        ID               posicion 1
+local              VARIABLE      int         parametro                      tres                        -          40      9         ID               
+cuatro             METODO        void        N/A                            GLOBAL                      -          47      6         ID               (int parametro) -> void
+parametro          PARAMETRO     int         N/A                            cuatro                      -          47      17        ID               posicion 1
+local              VARIABLE      int         parametro                      cuatro                      -          48      9         ID               
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total de símbolos registrados: 23
+RESULTADO: VALIDO | errores sintacticos: 0 | errores semanticos: 0 | errores lexicos: 0 | analisis completo

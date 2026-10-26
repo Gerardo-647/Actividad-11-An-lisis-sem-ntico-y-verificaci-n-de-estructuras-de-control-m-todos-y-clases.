@@ -1,0 +1,49 @@
+int contadorGlobal = 0;
+const int MAXIMO = 100;
+
+class Ambitos {
+    int atributo = 1;
+
+    void uno() {
+        int local = 2;
+        int atributo2 = atributo + local + contadorGlobal;
+        {
+            int local = 5;
+            int interno = local + atributo;
+            {
+                int local = 9;
+                contadorGlobal = local + interno;
+            }
+        }
+        for (int i = 0; i < 3; i++) {
+            local = local + i;
+        }
+        for (int i = 0; i < 3; i++) {
+            local = local + i;
+        }
+    }
+
+    void dos() {
+        int local = 7;
+        atributo = local;
+    }
+};
+
+class Otra {
+    void uno() {
+        int local = 3;
+        contadorGlobal = local + MAXIMO;
+    }
+};
+
+void tres(int parametro) {
+    int local = parametro;
+    switch (local) {
+        case 1: contadorGlobal = 1; break;
+        default: contadorGlobal = 0;
+    }
+}
+
+void cuatro(int parametro) {
+    int local = parametro;
+}

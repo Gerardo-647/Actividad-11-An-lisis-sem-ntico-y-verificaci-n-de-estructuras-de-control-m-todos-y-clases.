@@ -1,0 +1,32 @@
+void iniciar( {
+    cout << "Inicio";
+}
+
+int sumar(int a,, int b) {
+    return a + b;
+}
+
+int restar(int a, int) {
+    return a;
+}
+
+void mostrar(int valor {
+    cout << valor;
+}
+
+void proceso() {
+    iniciar;
+    
+    sumar(a,,b);
+    
+    mostrar(;
+    
+    sumar(,20);
+    
+    sumar(10,);
+}
+
+// Método válido posterior para verificar sincronización y recuperación de errores
+void metodoRecuperado() {
+    cout << "Metodo analizado correctamente despues del error";
+}

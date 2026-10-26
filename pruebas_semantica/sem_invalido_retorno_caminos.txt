@@ -1,0 +1,45 @@
+int a(int n) {
+    if (n > 0) {
+        return 1;
+    }
+}
+
+int b(int n) {
+    if (n > 0) {
+        return 1;
+    } else {
+        escribir("x");
+    }
+}
+
+int c(int n) {
+    while (n > 0) {
+        return 1;
+    }
+}
+
+int d(int n) {
+    switch (n) {
+        case 1: return 1;
+    }
+}
+
+int e(int n) {
+    while (true) {
+        if (n > 0) {
+            break;
+        }
+    }
+}
+
+int f() {
+    escribir("sin return");
+}
+
+int correcto(int n) {
+    if (n > 0) {
+        return 1;
+    } else {
+        return 2;
+    }
+}

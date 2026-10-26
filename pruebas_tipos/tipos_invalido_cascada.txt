@@ -1,0 +1,10 @@
+class Cascada {
+    int n = 1;
+    void ejecutar() {
+        int r = 0;
+        // 'noExiste' se reporta una sola vez; el resto de la expresión no genera errores en cascada
+        r = (noExiste + 1) * 2 > 3;
+        if (noExiste2 && n > 0) { r = 1; }
+        r = n + (true && 5);
+    }
+}

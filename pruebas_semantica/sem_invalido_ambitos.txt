@@ -1,0 +1,46 @@
+int contadorGlobal = 0;
+
+class Ambitos {
+    int atributo = 1;
+
+    void uno(int parametro) {
+        int local = 2;
+        int local = 3;
+        int parametro = 4;
+        int atributo = 5;
+        {
+            int interno = 1;
+            int interno = 2;
+        }
+        resultado = interno;
+        usadoAntes = 1;
+        int usadoAntes = 2;
+    }
+
+    void dos() {
+        local = 9;
+        parametro = 3;
+        contadorGlobal = atributo;
+        escribir(variableInexistente);
+    }
+
+    int atributo = 99;
+};
+
+class Otra {
+    int ajeno = 1;
+    void tres() {
+        int x = atributo;
+        ajeno = 5;
+    }
+};
+
+void cuatro() {
+    int y = ajeno;
+    int z = 0;
+    int z = 1;
+    switch (z) {
+        case 1: int w = 1; break;
+        case 2: w = 2; break;
+    }
+}

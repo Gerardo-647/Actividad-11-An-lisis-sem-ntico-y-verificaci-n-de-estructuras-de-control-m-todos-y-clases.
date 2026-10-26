@@ -1,0 +1,5 @@
+void proceso() {
+    bool activo = false;
+    if (activo) { cout << "SI"; }
+    cout << "POSTERIOR";
+}

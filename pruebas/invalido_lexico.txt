@@ -1,0 +1,4 @@
+void proceso() {
+    x = @;
+    cout << "POSTERIOR";
+}

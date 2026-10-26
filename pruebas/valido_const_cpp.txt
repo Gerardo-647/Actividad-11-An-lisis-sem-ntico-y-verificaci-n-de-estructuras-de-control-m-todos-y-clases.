@@ -1,0 +1,4 @@
+void proceso() {
+    const int MAX=10; string texto="hola"; bool activo=true;
+    cout << "POSTERIOR";
+}

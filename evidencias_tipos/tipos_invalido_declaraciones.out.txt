@@ -1,0 +1,56 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - VERIFICACIÓN DE TIPOS
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: tabla de simbolos y verificacion de tipos (C++, tipado estatico)
+Archivo: pruebas_tipos/tipos_invalido_declaraciones.txt
+Error semántico en línea 2, columna 9: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'string' al atributo 'edad' de tipo 'int' (encontrado: 'edad').
+Regla reconocida: declaracion
+Error semántico en línea 3, columna 10: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'int' al atributo 'activo' de tipo 'bool' (encontrado: 'activo').
+Regla reconocida: declaracion
+Error semántico en línea 4, columna 12: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'char' al atributo 'nombre' de tipo 'string' (encontrado: 'nombre').
+Regla reconocida: declaracion
+Error semántico en línea 5, columna 11: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'bool' al atributo 'peso' de tipo 'float' (encontrado: 'peso').
+Regla reconocida: declaracion
+Error semántico en línea 6, columna 10: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'string' al atributo 'inicial' de tipo 'char' (encontrado: 'inicial').
+Regla reconocida: declaracion
+Error semántico en línea 7, columna 9: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'float' al atributo 'truncado' de tipo 'int' (encontrado: 'truncado').
+Regla reconocida: declaracion
+Error semántico en línea 8, columna 15: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'string' a la constante 'MAXIMO' de tipo 'int' (encontrado: 'MAXIMO').
+Regla reconocida: constante
+Regla reconocida: constante
+Regla reconocida: constante
+Error semántico en línea 13, columna 13: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'float' a la variable 'a' de tipo 'int' (encontrado: 'a').
+Regla reconocida: declaracion
+Error semántico en línea 14, columna 14: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'string' a la variable 'b' de tipo 'bool' (encontrado: 'b').
+Regla reconocida: declaracion
+Error semántico en línea 15, columna 16: Incompatibilidad de tipos: No se puede asignar un valor de tipo 'int' a la variable 's' de tipo 'string' (encontrado: 's').
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: clase Declaraciones
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 13
+  Operaciones aritméticas (+ - * / %):                             0
+  Operaciones relacionales (> < >= <= == !=):                      0
+  Operaciones lógicas (&& || !):                                   0
+  Condiciones de control (if, while, do-while, for):               0
+  Retornos de método:                                              0
+Errores detectados:
+  Incompatibilidad de tipos:                  10
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 0
+Resultado semántico: CON ERRORES (10 errores semánticos)
+================================================================================
+Tabla de simbolos no generada: el analisis contiene errores.
+RESULTADO: INVALIDO | errores sintacticos: 0 | errores semanticos: 10 | errores lexicos: 0 | analisis completo

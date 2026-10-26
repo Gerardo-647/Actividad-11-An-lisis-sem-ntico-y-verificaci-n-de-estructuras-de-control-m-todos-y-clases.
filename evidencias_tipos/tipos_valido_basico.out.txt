@@ -1,0 +1,67 @@
+--------------------------------------------------------------------------------
+TRADUCTORES DE LENGUAJE - PRÁCTICA: ANÁLISIS SEMÁNTICO - VERIFICACIÓN DE TIPOS
+INTEGRANTES:
+1. Cancelada de la O Gerardo Alexander
+2. Castellanos Hernández Alan
+3. Lara Jiménez Pablo César
+4. Medina Robledo Brandon Ernie
+--------------------------------------------------------------------------------
+Analisis semantico: tabla de simbolos y verificacion de tipos (C++, tipado estatico)
+Archivo: pruebas_tipos/tipos_valido_basico.txt
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: constante
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: declaracion
+Regla reconocida: expresion_aritmetica -> base * 5 [tipo: int]
+Regla reconocida: asignacion
+Regla reconocida: expresion_aritmetica -> base + factor [tipo: float]
+Regla reconocida: expresion_aritmetica -> (base + factor) * PI [tipo: float]
+Regla reconocida: asignacion
+Regla reconocida: expresion_relacional -> resultado > 20 [tipo: bool]
+Regla reconocida: expresion_logica -> (resultado > 20) && esActivo [tipo: bool]
+Regla reconocida: asignacion
+Regla reconocida: condicion
+Regla reconocida: escritura
+Regla reconocida: bloque
+Regla reconocida: seleccion_simple
+Regla reconocida: bloque
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: metodo_sin_retorno
+Regla reconocida: clase Evaluador
+Regla reconocida: archivo
+================================================================================
+REPORTE DEL ANÁLISIS SEMÁNTICO DE TIPOS (lenguaje: C++, tipado estático)
+================================================================================
+Verificaciones realizadas:
+  Declaraciones y asignaciones (variables, atributos, constantes): 10
+  Operaciones aritméticas (+ - * / %):                             3
+  Operaciones relacionales (> < >= <= == !=):                      1
+  Operaciones lógicas (&& || !):                                   1
+  Condiciones de control (if, while, do-while, for):               1
+  Retornos de método:                                              0
+Errores detectados:
+  Incompatibilidad de tipos:                  0
+  Modificación de constantes (inmutabilidad): 0
+  Otros semánticos (no declarado, duplicado, convención, inicialización): 0
+Resultado semántico: CORRECTO (sin errores semánticos)
+================================================================================
+========================================================================================================================
+                                                   TABLA DE SÍMBOLOS
+========================================================================================================================
+ID                 Categoría     Tipo Dato   Valor            Ámbito            Línea   Columna   Token Originador
+------------------------------------------------------------------------------------------------------------------------
+Evaluador          CLASE         void        N/A              GLOBAL            1       7         ID              
+base               ATRIBUTO      int         10               Evaluador         2       9         ID              
+factor             ATRIBUTO      float       2.5              Evaluador         3       11        ID              
+PI                 CONSTANTE     float       3.1416           Evaluador         4       17        ID              
+esActivo           ATRIBUTO      bool        true             Evaluador         5       10        ID              
+ejecutar           METODO        void        N/A              Evaluador         7       10        ID              
+resultado          VARIABLE      int         0                ejecutar          8       13        ID              
+calculoComplejo    VARIABLE      float       0.0              ejecutar          9       15        ID              
+condicion          VARIABLE      bool        false            ejecutar          10      14        ID              
+------------------------------------------------------------------------------------------------------------------------
+Total de símbolos registrados: 9
+RESULTADO: VALIDO | errores sintacticos: 0 | errores semanticos: 0 | errores lexicos: 0 | analisis completo
